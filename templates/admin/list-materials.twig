@@ -1,0 +1,80 @@
+{# templates/admin/materials-list.twig #}
+<div class="wrap">
+    <h1 class="wp-heading-inline">Lista materiałów PJM</h1>
+    <a href="{{ add_new_url }}" class="page-title-action">Dodaj nowy</a>
+
+    {# Formularz z filtrami #}
+    <form method="get" class="devents-filters">
+        <input type="hidden" name="page" value="{{ page_slug }}">
+        <input type="text" name="s" placeholder="Szukaj..." value="{{ search_query|e }}">
+        <button type="submit" class="button">Filtruj</button>
+        <a href="{{ clear_url }}" class="button">Wyczyść</a>
+    </form>
+
+    <form id="bulk-materials-form" method="post">
+        <input type="hidden" name="action" value="process_bulk_materials">
+        {{ nonce_field|raw }}
+
+        <div class="tablenav top">
+            <div class="alignleft actions bulkactions">
+                <select name="bulk_action_top">
+                    <option value="">Akcje zbiorcze</option>
+                    <option value="delete">Usuń</option>
+                    <option value="verify">Zweryfikuj</option>
+                    <option value="unverify">Cofnij weryfikację</option>
+                    <option value="publish">Opublikuj jako Wpis</option>
+                    <option value="unpublish">Cofnij publikację</option>
+                </select>
+                <button type="button" id="doaction_top" class="button action">Zastosuj</button>
+            </div>
+            <div class="tablenav-pages">
+                <span class="displaying-num">{{ total_items }} materiałów</span>
+                <span class="pagination-links">{{ pagination_links|raw }}</span>
+            </div>
+        </div>
+
+        <table class="wp-list-table widefat striped devents-responsive-table" id="materials-table">
+            <thead>
+                <tr>
+                    <td class="manage-column column-cb check-column"><input type="checkbox" id="select-all-top"></td>
+                    <th><a href="{{ sort_links.id }}">ID {{ sort_arrows.id|raw }}</a></th>
+                    <th><a href="{{ sort_links.title }}">Tytuł {{ sort_arrows.title|raw }}</a></th>
+                    <th class="desktop-only"><a href="{{ sort_links.author }}">Autor {{ sort_arrows.author|raw }}</a></th>
+                    <th class="desktop-only"><a href="{{ sort_links.series_name }}">Seria {{ sort_arrows.series_name|raw }}</a></th>
+                    <th class="desktop-only">Miniatura</th>
+                    <th class="desktop-only">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if materials is not empty %}
+                    {% for material in materials %}
+                        <tr id="material-row-{{ material.id }}">
+                            <th class="check-column"><input type="checkbox" name="material_ids[]" value="{{ material.id }}"></th>
+                            <td data-label="ID:" class="desktop-only">{{ material.id }}</td>
+                            <td class="responsive-main-info" data-label="Materiał:">
+                                <strong><a href="{{ material.edit_link }}">{{ material.title|e }}</a></strong>
+                                <div class="responsive-meta">
+                                    <span>Autor: {{ material.author|e }}</span><br>
+                                    <span>Seria: {{ material.series_name|e }}</span><br>
+                                    <span class="desktop-only-inline">Status: {{ material.status_text }}</span>
+                                </div>
+                                <div class="row-actions">
+                                    <span class="edit"><a href="{{ material.edit_link }}" class="button button-small">Edytuj</a></span>
+                                    <span class="delete"><a href="#" class="button-delete-material" data-id="{{ material.id }}" data-nonce="{{ material.delete_nonce }}">Usuń</a></span>
+                                    <span class="publish"><a href="#" class="button-publish-material" data-id="{{ material.id }}" data-nonce="{{ material.publish_nonce }}">Opublikuj</a></span>
+                                </div>
+                            </td>
+                            <td data-label="Autor:" class="desktop-only">{{ material.author|e }}</td>
+                            <td data-label="Seria:" class="desktop-only">{{ material.series_name|e }}</td>
+                            <td data-label="Miniatura:" class="desktop-only"><img src="{{ material.thumbnail_url }}" width="100" height="75" alt="Miniatura"></td>
+                            <td data-label="Status:" class="desktop-only">{{ material.status_text|raw }}</td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr><td colspan="7">Brak materiałów.</td></tr>
+                {% endif %}
+            </tbody>
+        </table>
+        {# Dolna nawigacja - opcjonalnie #}
+    </form>
+</div>

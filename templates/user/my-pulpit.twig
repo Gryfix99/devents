@@ -1,0 +1,79 @@
+{# templates/user/my-pulpit.twig - Wersja 3.0 z nowym, lepszym układem #}
+
+{% if is_registration_success %}
+     <div class="message-box message-box--success">Konto zostało pomyślnie aktywowane! Witamy w serwisie.</div>
+{% endif %}
+
+{# --- SEKCJA 1: Statystyki na całą szerokość --- #}
+<div class="dashboard-stats-grid">
+    <div class="stat-card">
+        <span class="material-symbols-outlined">event</span>
+        <div class="stat-card__content">
+            <span class="stat-card__value">{{ dashboard_data.events_count }}</span>
+            <span class="stat-card__label">Twoich Wydarzeń</span>
+        </div>
+    </div>
+    <div class="stat-card">
+        <span class="material-symbols-outlined">movie</span>
+        <div class="stat-card__content">
+            <span class="stat-card__value">{{ dashboard_data.videos_count }}</span>
+            <span class="stat-card__label">Twoich Filmów</span>
+        </div>
+    </div>
+    <div class="stat-card">
+        <span class="material-symbols-outlined">visibility</span>
+        <div class="stat-card__content">
+            <span class="stat-card__value">{{ dashboard_data.total_views }}</span>
+            <span class="stat-card__label">Wyświetleń (w budowie)</span>
+        </div>
+    </div>
+</div>
+
+{# --- SEKCJA 2: Główny układ dwukolumnowy --- #}
+<div class="dashboard-main-grid">
+    {# LEWA KOLUMNA: Szybkie akcje #}
+    <div class="dashboard-actions-column">
+        <h3>Szybkie akcje</h3>
+        <div class="dashboard-actions">
+            <a href="{{ panel_url }}?view=dodaj-wydarzenie" class="action-card">
+                <span class="material-symbols-outlined">add_circle</span>
+                <span>Opublikuj Wydarzenie</span>
+            </a>
+            <a href="{{ panel_url }}?view=dodaj-film" class="action-card">
+                {# POPRAWIONA IKONA #}
+                <span class="material-symbols-outlined">video_call</span>
+                <span>Opublikuj Film</span>
+            </a>
+            <a href="{{ panel_url }}?view=moje-wydarzenia" class="action-card">
+                <span class="material-symbols-outlined">event_list</span>
+                <span>Zarządzaj Wydarzeniami</span>
+            </a>
+             <a href="{{ panel_url }}?view=moje-filmy" class="action-card">
+                <span class="material-symbols-outlined">video_library</span>
+                <span>Zarządzaj Filmami</span>
+            </a>
+        </div>
+    </div>
+
+    {# PRAWA KOLUMNA: Karta profilu #}
+    <div class="dashboard-profile-column">
+        <h3>Twój profil</h3>
+        <div class="profile-card-dashboard">
+            <div class="profile-card__logo">
+                {# Ta logika teraz zadziała poprawnie #}
+                {% if profile_card and profile_card.logo_url %}
+                    <img src="{{ profile_card.logo_url }}" alt="Logo">
+                {% else %}
+                    <span class="material-symbols-outlined">{{ profile_card.is_institution ? 'apartment' : 'person' }}</span>
+                {% endif %}
+            </div>
+            <div class="profile-card__info">
+                <h3 class="name">{{ profile_card.is_institution ? profile_card.org_name : profile_card.display_name }}</h3>
+                <p class="details">{{ profile_card.is_institution ? profile_card.display_name : '' }}</p>
+                <p class="details">{{ profile_card.email }}</p>
+            </div>
+            <a href="{{ panel_url }}?view=ustawienia" class="btn btn--secondary" style="margin-top: 1rem;">Przejdź do ustawień</a>
+        </div>
+    </div>
+</div>
+

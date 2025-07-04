@@ -1,0 +1,81 @@
+/* --------------------------------------------------
+   ADMIN MESSAGES STYLES
+   Style dla komunikatów statusu w panelu administratora (np. "Zapisano zmiany", "Błąd").
+   Uproszczone nazwy: success, error.
+----------------------------------------------------- */
+
+/* Ogólne komunikaty */
+.message {
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: var(--border-radius-small);
+    text-align: center;
+    border: 1px solid transparent;
+}
+
+.message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+}
+
+.message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
+}
+
+/* Badge statusu (np. w tabelach) */
+.status-badge {
+    /* Ogólna klasa dla badge'y statusu */
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: var(--border-radius-pill);
+    font-size: 11px;
+    color: var(--bg-white);
+    font-weight: 600;
+}
+/* Style dla nowych statusów w panelu admina */
+
+/* Status: Oczekujące (czerwony) */
+.status-badge--pending {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Wcześniej ta klasa nazywała się 'unverified', ujednolicamy ją */
+.status-badge--unverified {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+
+/* Status: Zweryfikowane (zielony) */
+.status-badge--published {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+/* Wcześniej ta klasa nazywała się 'verified', ujednolicamy ją */
+.status-badge--verified {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+/* Status: Wersja Robocza (niebieski) */
+.status-badge--draft {
+    background-color: #cce5ff;
+    color: #004085;
+    border: 1px solid #b8daff;
+}
+
+/* Status: Zaktualizowane (żółty/pomarańczowy) */
+.status-badge--updated {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+}

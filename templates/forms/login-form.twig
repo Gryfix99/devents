@@ -1,0 +1,58 @@
+{#
+    Nowy, w pełni ostylowany formularz logowania.
+    Używa istniejących klas CSS oraz nowych, dedykowanych z pliku auth.css.
+#}
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h2 class="auth-title">
+                Zaloguj się na swoje konto
+            </h2>
+        </div>
+
+        {% if error_message %}
+            <div class="message-box message-box--error auth-message">
+                {{ error_message|raw }}
+            </div>
+        {% endif %}
+
+        <form method="post" action="{{ current_url }}" class="devents-form">
+            <input type="hidden" name="devents_action" value="login">
+            {{ nonce_field|raw }}
+
+            <div class="form-group">
+                <label for="devents_user_login" class="form-label">Nazwa użytkownika lub e-mail <span class="form-required-field">*</span></label>
+                <input type="text" id="devents_user_login" name="devents_user_login" autocomplete="username" required class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="devents_user_pass" class="form-label">Hasło <span class="form-required-field">*</span></label>
+                <input type="password" id="devents_user_pass" name="devents_user_pass" autocomplete="current-password" required class="form-control">
+            </div>
+            
+            <div class="form-row-spaced">
+                <div class="form-checkbox-group">
+                    <input type="checkbox" id="devents_rememberme" name="devents_rememberme">
+                    <label for="devents_rememberme">Zapamiętaj mnie</label>
+                </div>
+                <div class="auth-link-wrapper">
+                    <a href="/zapomnialem-hasla/" class="form-link">Nie pamiętasz hasła?</a>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn--primary btn--full-width">Zaloguj się</button>
+            </div>
+        </form>
+        
+        <div class="auth-separator">
+            <span class="auth-separator-text">Nie masz jeszcze konta?</span>
+        </div>
+
+        <div class="auth-secondary-action">
+            <a href="/zarejestruj-sie" class="btn btn--secondary btn--full-width">
+                Zarejestruj się
+            </a>
+        </div>
+    </div>
+</div>

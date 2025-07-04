@@ -1,0 +1,75 @@
+/* --------------------------------------------------
+   FRONTEND MESSAGES STYLES
+   Style dla komunikatów: success, error, announcement.
+----------------------------------------------------- */
+
+/* Ogólne style dla wszystkich typów komunikatów */
+.message-box {
+    padding: 15px;
+    margin: 0 auto 20px auto;
+    width: 100%;
+    border-radius: var(--border-radius-small);
+    box-shadow: var(--shadow-light);
+    /* Lżejszy cień dla komunikatów */
+    font-family: var(--font-family-base);
+    font-weight: 400;
+    border: 1px solid transparent;
+}
+
+/* Komunikat sukcesu */
+.message-box--success {
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+}
+
+/* Komunikat błędu */
+.message-box--error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
+}
+
+/* Komunikat ogłoszenia/informacji */
+.message-box--announcement {
+    background-color: #cce5ff;
+    /* Jasnoniebieski */
+    color: #004085;
+    /* Ciemnoniebieski */
+    border-color: #b8daff;
+}
+
+/* Komunikat o niezweryfikowanym wydarzeniu */
+.event-unverified {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
+    text-align: center;
+    color: #d9534f;
+    font-weight: bold;
+    background-color: #f8d7da;
+    /* Dodane tło i ramka dla spójności */
+    border: 1px solid #f5c6cb;
+    border-radius: var(--border-radius-small);
+}
+
+/* Komunikat braku wydarzeń (ogólny) */
+.no-events {
+    text-align: center;
+    padding: 40px;
+    font-size: 18px;
+    color: var(--text-light);
+}
+
+/* Komunikaty braku wydarzeń (na homepage) */
+.no-upcoming,
+.no-current {
+    font-size: 1rem;
+    color: var(--text-medium);
+}
+
+.message-box--centered {
+    text-align: center;
+    max-width: 700px;
+    /* Opcjonalnie: ogranicz szerokość, aby wyglądało lepiej */
+}

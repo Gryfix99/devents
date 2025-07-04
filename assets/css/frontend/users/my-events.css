@@ -1,0 +1,284 @@
+/* ========================================================================
+   KOMPONENT: LISTA TREŚCI UŻYTKOWNIKA (.my-content-list)
+   ======================================================================== */
+
+.my-content-list__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.my-content-list__title {
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+/* --- Pasek narzędzi (Wyszukiwarka i Filtry) --- */
+.list-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background-color: var(--bg-white);
+    border-radius: var(--border-radius-large);
+}
+
+.search-form {
+    display: flex;
+    gap: 0.5rem;
+    flex-grow: 4;
+}
+
+/* Mówimy przyciskowi, aby zachował swój oryginalny rozmiar i się nie rozciągał ani nie kurczył */
+.search-form .btn {
+    flex-shrink: 0;
+}
+
+.filter-pills {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    /* Pozwala pigułkom się zawijać */
+}
+
+.filter-pill {
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    background-color: #e2e8f0;
+    color: #475569;
+    font-weight: 500;
+    text-decoration: none !important;
+    transition: background-color 0.2s, color 0.2s;
+    line-height: 1;
+}
+
+.filter-pill:hover {
+    background-color: #cbd5e1;
+}
+
+.filter-pill.active {
+    background-color: var(--primary);
+    color: white;
+}
+
+
+/* --- Sortowanie mobilne (domyślnie ukryte) --- */
+.mobile-sort-bar {
+    display: none;
+    margin-bottom: 1.5rem;
+}
+
+.mobile-sort-bar label {
+    font-weight: 600;
+    margin-right: 10px;
+}
+
+.mobile-sort-bar select {
+    padding: 0.5rem;
+}
+
+
+/* --- Tabela z danymi --- */
+.table-responsive-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.my-content-list__table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--bg-white);
+    border-radius: var(--border-radius-large);
+    box-shadow: var(--shadow-light);
+    overflow: hidden;
+}
+
+.my-content-list__table th,
+.my-content-list__table td {
+    padding: 1rem 1.25rem;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+    vertical-align: middle;
+}
+
+.my-content-list__table thead th {
+    background-color: var(--bg-light-gray);
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: var(--text-medium);
+    white-space: nowrap;
+}
+
+.my-content-list__table.sortable th a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none !important;
+    color: inherit;
+}
+
+.my-content-list__table.sortable th a:hover {
+    color: var(--primary);
+}
+
+.my-content-list__table .sort-icon {
+    font-size: 1.1rem;
+    font-weight: 900;
+}
+
+.my-content-list__table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.my-content-list__table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.actions-cell {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.actions-cell .btn--icon .material-symbols-outlined {
+    font-size: 1.2rem;
+    /* Lepszy rozmiar ikon w przyciskach */
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.status-badge--published {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.status-badge--pending {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.status-badge--draft {
+    background-color: #e2e8f0;
+    color: #475569;
+}
+
+.status-badge--updated {
+    background-color: #fff8e1;
+    color: #8c6d0f;
+}
+
+
+/* --- Style responsywne dla całego komponentu --- */
+@media (max-width: 768px) {
+    .list-toolbar {
+        flex-direction: column;
+    }
+
+    .search-form {
+        width: 100%;
+        max-width: none;
+    }
+
+    .filter-pills {
+        justify-content: center;
+    }
+
+    .filter-pill {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.875rem;
+    }
+
+    .my-content-list__table.sortable thead {
+        display: none;
+    }
+
+    .mobile-sort-bar {
+        display: flex;
+        align-items: center;
+    }
+
+    .my-content-list__table tr {
+        display: block;
+        margin-bottom: 1rem;
+        border: 1px solid #e2e8f0;
+        border-radius: var(--border-radius-medium);
+        padding: 0.5rem;
+    }
+
+    .my-content-list__table td {
+        display: block;
+        text-align: right;
+        border-bottom: 1px dotted #e2e8f0;
+        position: relative;
+        padding-left: 50%;
+    }
+
+    .my-content-list__table td:last-child {
+        border-bottom: none;
+    }
+
+    .my-content-list__table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        font-weight: 600;
+        color: var(--text-dark);
+        text-align: left;
+    }
+
+    .actions-cell {
+        justify-content: flex-end;
+    }
+}
+
+/* Style dla miniaturki i nakładki z czasem trwania na liście filmów */
+.column-thumbnail {
+    width: 120px;
+    /* Ograniczamy szerokość kolumny */
+}
+
+.thumbnail-container {
+    position: relative;
+    width: 100px;
+    /* Stała szerokość miniaturki */
+    height: 60px;
+    /* Wysokość w proporcji ~16:9 */
+    border-radius: var(--border-radius-small);
+    overflow: hidden;
+    background-color: #f0f0f0;
+}
+
+.video-thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Obrazek wypełni kontener bez zniekształceń */
+}
+
+.duration-overlay {
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 2px 6px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    border-radius: var(--border-radius-small);
+}

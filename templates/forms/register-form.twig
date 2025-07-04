@@ -1,0 +1,93 @@
+{# templates/forms/register-form.twig - Wersja ostateczna z uploadem logo #}
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h1 class="auth-title">Utwórz nowe konto</h1>
+        </div>
+
+        <div id="form-messages"></div>
+
+        <form id="register-form" method="POST" enctype="multipart/form-data" class="devents-form">
+            
+            <div class="form-group">
+                <label class="form-label">Wybierz typ konta:</label>
+                <div class="auth-radio-group">
+                    <label class="auth-radio-label"><input type="radio" name="role" value="subscriber" checked> Uczestnik</label>
+                    <label class="auth-radio-label"><input type="radio" name="role" value="organizer"> Organizacja</label>
+                </div>
+            </div>
+
+            {# --- SEKCJA DLA UCZESTNIKA (widoczna domyślnie) --- #}
+            <div id="section-member">
+                <div class="form-row">
+                    <div class="form-group"><label for="name" class="form-label">Imię</label><input type="text" id="name" name="name" class="form-control"></div>
+                    <div class="form-group"><label for="surname" class="form-label">Nazwisko</label><input type="text" id="surname" name="surname" class="form-control"></div>
+                </div>
+                <div class="form-group">
+                    <label for="logo_upload_subscriber" class="form-label">Wgraj swój awatar</label>
+                    <input type="file" id="logo_upload_subscriber" name="logo_upload" class="form-control" accept="image/jpeg, image/png, image/webp">
+                </div>
+            </div>
+
+            {# --- SEKCJA DLA ORGANIZACJI (widoczna warunkowo) --- #}
+            <div id="section-organizer" style="display: none;">
+                <div class="form-section" style="padding:0; box-shadow:none; border:none;">
+                    <h3 class="auth-section-title">Dane Organizacji</h3>
+                    <div class="form-group"><label for="org_name" class="form-label">Nazwa organizacji <span class="form-required-field">*</span></label><input type="text" id="org_name" name="org_name" class="form-control"></div>
+                    <div class="form-group"><label for="org_nip" class="form-label">Nr NIP <span class="form-required-field">*</span></label><input type="text" id="org_nip" name="org_nip" class="form-control"></div>
+                    <div class="form-group"><label for="org_address" class="form-label">Adres instytucji</label><input type="text" id="org_address" name="org_address" class="form-control"></div>
+                    <div class="form-group"><label for="org_phone" class="form-label">Telefon organizacji</label><input type="tel" id="org_phone" name="org_phone" class="form-control"></div>
+                    <div class="form-group"><label for="org_email" class="form-label">Publiczny e-mail organizacji</label><input type="email" id="org_email" name="org_email" class="form-control"></div>
+                    <div class="form-group"><label for="org_website" class="form-label">Strona internetowa</label><input type="url" id="org_website" name="org_website" class="form-control"></div>
+                     <div class="form-group">
+                        <label for="logo_upload_organizer" class="form-label">Wgraj logo organizacji</label>
+                        <input type="file" id="logo_upload_organizer" name="logo_upload" class="form-control" accept="image/jpeg, image/png, image/webp">
+                    </div>
+                </div>
+                <div class="form-section" style="padding:0; box-shadow:none; border:none; margin-top:2rem;">
+                    <h3 class="auth-section-title">Koordynator Dostępności</h3>
+                    <div class="form-row">
+                        <div class="form-group"><label for="coordinator_first_name" class="form-label">Imię koordynatora</label><input type="text" id="coordinator_first_name" name="coordinator_first_name" class="form-control"></div>
+                        <div class="form-group"><label for="coordinator_last_name" class="form-label">Nazwisko koordynatora</label><input type="text" id="coordinator_last_name" name="coordinator_last_name" class="form-control"></div>
+                    </div>
+                    <div class="form-group"><label for="coordinator_email" class="form-label">E-mail koordynatora <span class="form-required-field">*</span></label><input type="email" id="coordinator_email" name="coordinator_email" class="form-control"></div>
+                    <div class="form-group"><label for="coordinator_phone" class="form-label">Telefon koordynatora <span class="form-required-field">*</span></label><input type="tel" id="coordinator_phone" name="coordinator_phone" class="form-control"></div>
+                </div>
+            </div>
+
+            <hr class="auth-hr" style="margin: 25px 0;">
+            <h3 class="auth-section-title">Dane Logowania</h3>
+            <div class="form-group"><label for="email" class="form-label">E-mail (będzie Twoim loginem) <span class="form-required-field">*</span></label><input type="email" id="email" name="email" class="form-control" required></div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="password" class="form-label">Hasło <span class="form-required-field">*</span></label>
+                    <input type="password" id="password" name="password" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirm_password" class="form-label">Powtórz hasło <span class="form-required-field">*</span></label>
+                    <input type="password" id="confirm_password" name="confirm_password" class="form-control" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-checkbox-group">
+                    <input type="checkbox" id="accept_policy" name="accept_policy" required>
+                    <span>Akceptuję Regulamin i Politykę prywatności</span>
+                </label>
+            </div>
+
+            <div class="form-group" style="margin-top:20px;">
+                <button type="submit" class="btn btn--primary btn--full-width">Utwórz konto</button>
+            </div>
+        </form>
+
+        <div class="auth-separator">
+            <span class="auth-separator-text">Masz już konto?</span>
+        </div>
+        <div class="auth-secondary-action">
+            <a href="{{ home_url('/zaloguj-sie') }}" class="btn btn--secondary btn--full-width">
+                Zaloguj się
+            </a>
+        </div>
+    </div>
+</div>

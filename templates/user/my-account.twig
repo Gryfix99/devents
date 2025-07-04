@@ -1,0 +1,119 @@
+{# Szablon ustawień konta z zakładkami - Wersja ostateczna #}
+<div class="account-settings-container">
+    <div id="settings-messages"></div>
+
+    {# Nawigacja z zakładkami #}
+    <nav class="settings-tabs">
+        <a href="#tab-dane" class="nav-tab active" data-tab="dane">Dane</a>
+        <a href="#tab-haslo" class="nav-tab" data-tab="haslo">Hasło</a>
+        <a href="#tab-usun" class="nav-tab" data-tab="usun">Usuń konta</a>
+    </nav>
+
+    {# --- Zakładka 1: Dane Główne (domyślnie aktywna) --- #}
+    <div id="tab-dane" class="tab-content active">
+        <form id="account-details-form" class="devents-form form-section">
+
+            <h2>Logo / Awatar</h2>
+            {% if org_data.logo_url %}
+                <div class="current-logo-preview">
+                    <img src="{{ org_data.logo_url }}" alt="Obecne logo" style="max-width: 120px; height: auto; border-radius: 50%;">
+                    <label class="form-checkbox-group" style="margin-top: 10px;">
+                        <input type="checkbox" name="delete_logo" value="true"> Usuń obecne logo
+                    </label>
+                </div>
+            {% endif %}
+                <div class="form-group" {% if org_data.logo_url %}style="margin-top:20px;"{% endif %}>
+                    <label for="logo_upload" class="form-label">
+                        {{ org_data.logo_url ? 'Wgraj nowe logo, aby zastąpić obecne' : 'Wgraj swoje logo lub awatar' }}
+                    </label>
+                    <input type="file" id="logo_upload" name="logo_upload" class="form-control" accept="image/jpeg, image/png, image/webp">
+                </div>
+
+            <h2>Dane podstawowe</h2>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="first_name" class="form-label">Imię</label>
+                    <input type="text" id="first_name" name="first_name" value="{{ user.first_name|e }}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="last_name" class="form-label">Nazwisko</label>
+                    <input type="text" id="last_name" name="last_name" value="{{ user.last_name|e }}" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email" class="form-label">Adres e-mail (login)</label>
+                <input type="email" id="email" name="email" value="{{ user.user_email|e }}" class="form-control" disabled>
+                <small class="add-form-input-info">Adresu e-mail nie można zmienić.</small>
+            </div>
+
+            {% if is_organizer %}
+                <hr class="auth-hr">
+                <h3>Dane Organizacji</h3>
+                <div class="form-group"><label for="org_name" class="form-label">Nazwa organizacji</label><input type="text" id="org_name" name="org_name" value="{{ org_data.org_name|e }}" class="form-control"></div>
+                <div class="form-group">
+                    <label for="org_description" class="form-label">Opis organizacji</label>
+                    <textarea id="org_description" name="org_description" class="form-textarea" rows="5">{{ org_data.org_description|e }}</textarea>
+                    <small class="add-form-input-info">Opisz w kilku zdaniach swoją organizację. Ten opis będzie widoczny na Twoim profilu publicznym.</small>
+                </div>
+                <div class="form-group"><label for="org_nip" class="form-label">NIP</label><input type="text" id="org_nip" name="org_nip" value="{{ org_data.org_nip|e }}" class="form-control"></div>
+                <div class="form-group"><label for="org_address" class="form-label">Adres</label><input type="text" id="org_address" name="org_address" value="{{ org_data.org_address|e }}" class="form-control"></div>
+                <div class="form-group"><label for="org_phone" class="form-label">Telefon organizacji</label><input type="text" id="org_phone" name="org_phone" value="{{ org_data.org_phone|e }}" class="form-control"></div>
+                <div class="form-group"><label for="org_email" class="form-label">Publiczny e-mail organizacji</label><input type="email" id="org_email" name="org_email" value="{{ org_data.org_email|e }}" class="form-control"></div>
+                <div class="form-group"><label for="org_website" class="form-label">Strona WWW</label><input type="url" id="org_website" name="org_website" value="{{ org_data.org_website|e }}" class="form-control"></div>
+
+                <hr class="auth-hr">
+                <h3>Koordynator Dostępności</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="coordinator_first_name" class="form-label">Imię koordynatora</label>
+                        <input type="text" id="coordinator_first_name" name="coordinator_first_name" value="{{ org_data.coordinator.first_name|e }}" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="coordinator_last_name" class="form-label">Nazwisko koordynatora</label>
+                        <input type="text" id="coordinator_last_name" name="coordinator_last_name" value="{{ org_data.coordinator.last_name|e }}" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group"><label for="coordinator_email" class="form-label">E-mail koordynatora</label><input type="email" id="coordinator_email" name="coordinator_email" value="{{ org_data.coordinator.email|e }}" class="form-control"></div>
+                <div class="form-group"><label for="coordinator_phone" class="form-label">Telefon koordynatora</label><input type="tel" id="coordinator_phone" name="coordinator_phone" value="{{ org_data.coordinator.phone|e }}" class="form-control"></div>
+            {% endif %}
+
+            <input type="hidden" name="_wpnonce" value="{{ details_nonce }}">
+            <div class="form-group" style="padding-top: 15px;">
+                <button type="submit" class="btn btn--primary">Zapisz zmiany</button>
+            </div>
+        </form>
+    </div>
+
+    {# --- Zakładka 2: Zmiana Hasła --- #}
+    <div id="tab-haslo" class="tab-content">
+        <form id="change-password-form" class="devents-form form-section">
+            <h2>Zmiana hasła</h2>
+            <div class="form-group"><label for="current_pass" class="form-label">Bieżące hasło</label><input type="password" id="current_pass" name="current_pass" class="form-control" required></div>
+            <div class="form-row">
+                <div class="form-group"><label for="pass1" class="form-label">Nowe hasło</label><input type="password" id="pass1" name="pass1" class="form-control" required></div>
+                <div class="form-group"><label for="pass2" class="form-label">Powtórz nowe hasło</label><input type="password" id="pass2" name="pass2" class="form-control" required></div>
+            </div>
+            <input type="hidden" name="_wpnonce" value="{{ password_nonce }}">
+            <div class="form-group">
+                <button type="submit" class="btn btn--secondary">Zmień hasło</button>
+            </div>
+        </form>
+    </div>
+
+    {# --- Zakładka 3: Usunięcie Konta --- #}
+    <div id="tab-usun" class="tab-content">
+        <form id="delete-account-form" class="devents-form form-section danger-zone">
+            <h2 style="color: var(--danger);">Strefa niebezpieczna</h2>
+            <p>Usunięcie konta jest operacją nieodwracalną. Wszystkie Twoje dane i opublikowane treści zostaną trwale usunięte.</p>
+            <div class="form-group">
+                <label for="delete_pass" class="form-label">Potwierdź hasłem, aby usunąć konto</label>
+                <input type="password" id="delete_pass" name="delete_pass" class="form-control" required>
+            </div>
+            <input type="hidden" name="_wpnonce" value="{{ delete_nonce }}">
+            <div class="form-group">
+                <button type="submit" class="btn btn--danger">Usuń konto na zawsze</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,194 @@
+/* ==========================================================================
+   STYLE DLA STRONY POJEDYNCZEGO WYDARZENIA v3.0 (merged + simplified)
+   ========================================================================== */
+
+/* Lista wydarzeń (np. homepage, archiwa) */
+.events-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    list-style: none;
+    margin-bottom: 1rem;
+}
+
+.event-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 20px;
+}
+
+/* Wrapper pojedynczego wydarzenia */
+.event-wrapper {
+    max-width: 1100px;
+    margin: 2rem auto 3rem auto;
+    padding: 2rem;
+    background-color: var(--bg-white);
+    border-radius: var(--border-radius-large);
+    box-shadow: var(--shadow-medium);
+}
+
+/* Nagłówek z tytułem */
+.event-header .event-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: var(--text-dark);
+}
+
+/* Layout: lewa + prawa kolumna */
+.event-columns {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 2.5rem;
+}
+
+/* Lewa kolumna: obraz + szczegóły */
+/* Poprawiony styl dla obrazka wydarzenia */
+.event-left .event-image {
+    width: 100%;
+    height: 300px;
+    /* Ustawiamy stałą wysokość, aby stworzyć prostokąt */
+    object-fit: cover;
+    /* To jest kluczowe: obrazek wypełni prostokąt bez zniekształceń, przycinając nadmiar */
+    border-radius: var(--border-radius-medium);
+    margin-bottom: 1.5rem;
+    background-color: var(--bg-light-gray);
+    /* Tło dla obrazków, które się ładują */
+}
+
+/* Informacje o wydarzeniu */
+.event-info {
+    font-size: 1rem;
+    color: var(--text-dark);
+}
+
+.event-info .event-category {
+    background-color: #e2e8f0;
+    display: block;
+    text-align: center;
+    width: 100%;
+    font-weight: 600;
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+    margin-bottom: 1.5rem;
+    color: #475569;
+    font-size: 0.875rem;
+}
+
+/* Dodatkowe tagi informacyjne */
+.event-series {
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+    color: var(--text-medium);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+}
+
+.event-series-name {
+    font-size: 1.25rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+/* Lokacja jako link */
+.event-location-link {
+    color: var(--text-dark);
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+/* Pojedyncza informacja */
+.event-detail {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.event-detail .icon {
+    font-size: 24px;
+    color: var(--primary);
+    margin-top: 2px;
+}
+
+.event-detail .organizer-link {
+    font-weight: 600;
+    color: var(--primary);
+    text-decoration: none !important;
+}
+
+.event-detail .organizer-link:hover {
+    text-decoration: underline !important;
+}
+
+.event-detail .price-free {
+    font-weight: 600;
+    color: var(--success);
+}
+
+.event-detail .price {
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+/* Wideo */
+.event-right .event-video {
+    margin-bottom: 2rem;
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: var(--border-radius-medium);
+}
+
+.event-right .event-video iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Opis */
+.event-description {
+    line-height: 1.7;
+    font-size: 1.1rem;
+    color: var(--text-medium);
+    padding-bottom: 20px;
+    overflow-wrap: break-word;
+}
+
+.event-description p,
+.event-description ul {
+    margin-bottom: 1rem;
+}
+
+.event-description ul {
+    padding-left: 20px;
+}
+
+/* Stopka */
+.event-footer {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+/* RESPONSYWNOŚĆ */
+@media (max-width: 992px) {
+    .event-columns {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .event-grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,66 @@
+{# templates/user/panel.twig - Wersja 7.0 z ostateczną poprawką składni #}
+<div class="panel-nav-container" id="panel-container">
+
+    <aside class="panel-nav-sidebar" id="sidebar">
+        <header class="panel-nav-header">
+            <h3 class="panel-nav-title">Panel</h3>
+            <button id="panel-nav-toggle" class="panel-nav-toggle" aria-label="Przełącz nawigację">
+                <span class="material-symbols-outlined icon-menu">menu_open</span>
+                <span class="material-symbols-outlined icon-close">menu</span>
+            </button>
+        </header>
+
+        <nav class="panel-nav-list">
+            <ul>
+                {# POPRAWIONA SKŁADNIA PĘTLI #}
+                {% for slug, item in menu_items %}
+                    {# Warunek 'if' został przeniesiony do wnętrza pętli #}
+                    {% if item.visible %}
+                        <li class="{{ current_view == slug ? 'is-active' : '' }}">
+                            <a href="{{ panel_url }}?view={{ slug }}" title="{{ item.title }}" class="panel-nav-link">
+                                <span class="material-symbols-outlined">{{ item.icon }}</span>
+                                <span class="panel-nav-text">{{ item.title }}</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </nav>
+
+        <footer class="panel-nav-footer">
+            <a href="{{ wp_logout_url( home_url('/') ) }}" title="Wyloguj się" class="panel-nav-link">
+                <span class="material-symbols-outlined">logout</span>
+                <span class="panel-nav-text">Wyloguj się</span>
+            </a>
+        </footer>
+    </aside>
+
+    <main class="panel-nav-content">
+        <header class="content-header">
+            <h1>{{ menu_items[current_view].title }}</h1>
+        </header>
+        <div class="content-body">
+            {{ page_content|raw }}
+        </div>
+
+        {% if show_profile_nag %}
+            <div class="profile-nag-overlay" id="profile-nag-overlay">
+                <div class="profile-nag-modal">
+                    <span class="material-symbols-outlined modal-icon">contact_mail</span>
+                    <h3>Uzupełnij swój profil!</h3>
+                    <p>Zauważyliśmy, że Twój profil nie jest jeszcze kompletny. Dodanie logo i opisu organizacji znacząco zwiększy Twoją wiarygodność.</p>
+                    <div class="modal-actions">
+                        <button class="btn btn--secondary" id="profile-nag-close">Później</button>
+                        <a href="{{ panel_url }}?view=ustawienia" class="btn btn--primary" id="profile-nag-goto-settings">Przejdź do ustawień</a>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </main>
+</div>
+
+{# Zmieniamy ID przycisku mobilnego, aby pasował do Twojego ostatniego CSS #}
+<button id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label="Otwórz menu">
+    <span class="material-symbols-outlined icon-menu">menu</span>
+    <span class="material-symbols-outlined icon-close">close</span>
+</button>

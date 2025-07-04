@@ -1,0 +1,169 @@
+{# Kompletny szablon listy wydarzeń w panelu admina z poprawnymi klasami przycisków #}
+<div class="wrap">
+    <h1 class="wp-heading-inline">Lista wydarzeń</h1>
+    <a href="{{ add_new_url }}" class="page-title-action btn btn--primary">Dodaj nowe</a>
+
+    <details class="filter-toggle">
+        <summary>🔍 Filtry i sortowanie</summary>
+        <form method="get" class="devents-filters form">
+            <input type="hidden" name="page" value="{{ filters.page|e('html_attr') }}">
+            
+            {# Pola filtrowania #}
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="search_filter" class="form-label">Szukaj...</label>
+                    <input type="text" name="s" id="search_filter" placeholder="Szukaj..." value="{{ filters.search|e('html_attr') }}" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label for="date_from" class="form-label">Od: </label>
+                    <input type="date" name="date_from" id="date_from" value="{{ filters.date_from|e('html_attr') }}" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label for="date_to" class="form-label">Do: </label>
+                    <input type="date" name="date_to" id="date_to" value="{{ filters.date_to|e('html_attr') }}" class="form-input">
+                </div>
+            </div>
+
+            {# Pola sortowania #}
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="orderby" class="form-label">Sortuj wg:</label>
+                    <select name="orderby" id="orderby" class="form-select">
+                        <option value="title" {{ filters.orderby == 'title' ? 'selected' : '' }}>Nazwa</option>
+                        <option value="start_datetime" {{ filters.orderby == 'start_datetime' ? 'selected' : '' }}>Data</option>
+                        <option value="id" {{ filters.orderby == 'id' ? 'selected' : '' }}>ID</option>
+                        <option value="verified" {{ filters.orderby == 'verified' ? 'selected' : '' }}>Statusu weryfikacji</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="order" class="form-label">Kierunek:</label>
+                    <select name="order" id="order" class="form-select">
+                        <option value="DESC" {{ filters.order == 'DESC' ? 'selected' : '' }}>Malejąco</option>
+                        <option value="ASC" {{ filters.order == 'ASC' ? 'selected' : '' }}>Rosnąco</option>
+                    </select>
+                </div>
+            </div>
+
+            {# Przyciski #}
+            <div class="form-row form-actions">
+                <button type="submit" class="btn btn--primary">Zastosuj</button>
+                <a href="{{ filters.clear_url }}" class="btn btn--secondary">Wyczyść wszystko</a>
+            </div>
+        </form>
+    </details>
+
+    {# Górna nawigacja tabeli #}
+    <div class="tablenav top">
+        <div class="alignleft actions bulkactions">
+            <label for="bulk-action-selector-top" class="screen-reader-text">Wybierz akcję zbiorczą</label>
+            <select name="action" id="bulk-action-selector-top">
+                <option value="">Akcje zbiorcze</option>
+                <option value="delete_bulk">Usuń</option>
+                <option value="verify_bulk">Zweryfikuj</option>
+                <option value="unverify_bulk">Cofnij weryfikację</option>
+                <option value="publish_bulk">Opublikuj</option>
+            </select>
+            <input type="button" id="doaction_top" class="button action btn btn--secondary" value="Zastosuj">
+        </div>
+        {% if pagination.links %}
+        <div class="tablenav-pages">
+            <span class="displaying-num">{{ pagination.total_items }} elem.</span>
+            <span class="pagination-links">{{ pagination.links|raw }}</span>
+        </div>
+        {% endif %}
+        <br class="clear">
+    </div>
+
+    {# Główna tabela #}
+    <table class="wp-list-table widefat striped devents-responsive-table" id="events-table">
+        <thead>
+            <tr>
+                <td id="cb" class="manage-column column-cb check-column"><input id="cb-select-all-1" type="checkbox"></td>
+                <th scope="col" class="manage-column">ID</th>
+                <th scope="col" class="manage-column">Wydarzenie</th>
+                <th scope="col" class="manage-column desktop-only">Organizator</th>
+                <th scope="col" class="manage-column desktop-only">Data</th>
+            </tr>
+        </thead>
+        <tbody id="the-list">
+        {% for event in events %}
+            <tr id="event-{{ event.id }}">
+                <th scope="row" class="check-column"><input type="checkbox" name="event_ids[]" value="{{ event.id }}"></th>
+                <td data-label="ID:" class="desktop-only">{{ event.id }}</td>
+                <td class="responsive-main-info" data-label="Wydarzenie:">
+                    <strong><a href="{{ event.post_url }}" target="_blank">{{ event.title }}</a></strong>
+                    <div class="responsive-meta">
+                        <span>ID: {{ event.id }}</span><br>
+                        <span>Organizator: {{ event.org_name|raw }}</span><br>
+                        <span>Data: {{ event.formatted_date }}</span><br>
+                        <span class="status-badge {{ event.status_info.class }}">{{ event.status_info.text }}</span>
+                    </div>
+                    <div class="row-actions">
+                        <span class="edit"><a href="{{ 'admin.php?page=event_edit&id=' ~ event.id }}" class="btn btn--secondary btn--small">Edytuj</a></span>
+                        {% if event.verified == 1 %}
+                            <span class="unverify">
+                                <a href="#" class="unverify-event-btn btn btn--secondary btn--small" data-event-id="{{ event.id }}" data-nonce="{{ event.nonces.unverify }}">Cofnij wer.</a>
+                            </span>
+
+                        {# Jeśli status to 0 (Oczekujące) LUB 3 (Zaktualizowane), pokaż przycisk do weryfikacji #}
+                        {% elseif event.verified == 0 or event.verified == 3 %}
+                            <span class="verify">
+                                <a href="#" class="verify-event-btn btn btn--primary btn--small" data-event-id="{{ event.id }}" data-nonce="{{ event.nonces.verify }}">Zweryfikuj</a>
+                            </span>
+                        {% endif %}
+                        <span class="graphic"><a href="#" class="view-graphic-btn btn btn--secondary btn--small" data-event-id="{{ event.id }}">Grafika</a></span>
+                        {% if event.verified and not event.is_published %}
+                            <span class="publish"><a href="#" class="publish-event-btn btn btn--primary btn--small" data-event-id="{{ event.id }}" data-nonce="{{ event.nonces.publish }}">Opublikuj</a></span>
+                        {% endif %}
+                        <span class="delete"><a href="#" class="delete-event-btn btn btn--danger btn--small" data-event-id="{{ event.id }}" data-nonce="{{ event.nonces.delete }}">Usuń</a></span>
+                    </div>
+                </td>
+                <td data-label="Organizator:" class="desktop-only">{{ event.org_name|raw }}</td>
+                <td data-label="Data:" class="desktop-only">{{ event.formatted_date }}</td>
+            </tr>
+        {% else %}
+            <tr class="no-items"><td class="colspanchange" colspan="5">Brak wydarzeń.</td></tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td class="manage-column column-cb check-column"><input id="cb-select-all-2" type="checkbox"></td>
+                <th scope="col" class="manage-column">ID</th>
+                <th scope="col" class="manage-column">Wydarzenie</th>
+                <th scope="col" class="manage-column desktop-only">Organizator</th>
+                <th scope="col" class="manage-column desktop-only">Data</th>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="tablenav bottom">
+        <div class="alignleft actions bulkactions">
+            <label for="bulk-action-selector-bottom" class="screen-reader-text">Wybierz akcję zbiorczą</label>
+            <select name="action2" id="bulk-action-selector-bottom">
+                <option value="">Akcje zbiorcze</option>
+                <option value="delete_bulk">Usuń</option>
+                <option value="verify_bulk">Zweryfikuj</option>
+                <option value="unverify_bulk">Cofnij weryfikację</option>
+                <option value="publish_bulk">Opublikuj</option>
+            </select>
+            <input type="button" id="doaction_bottom" class="button action btn btn--secondary" value="Zastosuj">
+        </div>
+        {% if pagination.links %}
+        <div class="tablenav-pages">
+            <span class="displaying-num">{{ pagination.total_items }} elem.</span>
+            <span class="pagination-links">{{ pagination.links|raw }}</span>
+        </div>
+        {% endif %}
+        <br class="clear">
+    </div>
+</div>
+
+<div id="graphic-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:9999; overflow:auto; padding:50px 0;">
+  <div class="modal-content" style="margin:0 auto; max-width:90%; width:480px; background:#fff; border-radius:5px; position:relative; padding:20px; box-sizing:border-box;">
+    <span class="close-modal" style="position:absolute; top:10px; right:15px; font-size:24px; cursor:pointer;">×</span>
+    <div id="graphic-modal-body" style="text-align:center;">
+        <p>Ładowanie…</p>
+    </div>
+  </div>
+</div>
+

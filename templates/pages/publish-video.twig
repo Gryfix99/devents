@@ -1,0 +1,83 @@
+<div id="form-messages" style="margin-bottom: 20px;"></div>
+
+<form id="publish-video-form" class="devents-form" method="POST" enctype="multipart/form-data">
+    {{ wp_nonce_field('devents_save_video_action', '_wpnonce', true, false)|raw }}
+    <input type="hidden" name="video_id" value="{{ video.id|default(0) }}">
+
+    <div class="form-section">
+        <h2>Podstawowe informacje</h2>
+        <div class="form-group">
+            <label for="title" class="form-label">Tytuł filmu <span class="form-required-field">*</span></label>
+            <input type="text" id="title" name="title" class="form-control" value="{{ video.title|default('') }}" required maxlength="60">
+            <small class="add-form-input-info">Podaj zwięzły tytuł. <span id="title-char-count" class="char-count">0 / 60</span></small>
+        </div>
+        <div class="form-group">
+            <label for="video_url" class="form-label">Link do wideo <span class="form-required-field">*</span></label>
+            <input type="url" id="video_url" name="video_url" class="form-control" value="{{ video.video_url|default('') }}" required placeholder="np. https://youtube.com/watch?v=...">
+            <small class="add-form-input-info">Wklej link do filmu z serwisu YouTube, Vimeo lub innego.</small>
+        </div>
+        <div class="form-group">
+            <label for="description" class="form-label">Opis <span class="form-required-field">*</span></label>
+            <textarea id="description" name="description" class="form-textarea" required>{{ video.description|default('') }}</textarea>
+            <small class="add-form-input-info">Użyj formatowania Markdown. <span id="desc-char-count" class="char-count">0 / 6000</span></small>
+        </div>
+    </div>
+
+    <div class="form-section">
+        <h2>Szczegóły i kategoryzacja</h2>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="category" class="form-label">Kategoria <span class="form-required-field">*</span></label>
+                <select id="category" name="category" class="form-select" required>
+                    <option value="">-- Wybierz --</option>
+                    {% for cat in video_categories %}
+                        <option value="{{ cat }}" {{ video and video.category == cat ? 'selected' : '' }}>{{ cat }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="duration" class="form-label">Czas trwania</label>
+                <input type="text" id="duration" name="duration" class="form-control" value="{{ video.duration|default('') }}" placeholder="GG:MM:SS">
+                <small class="add-form-input-info">Format: godziny:minuty:sekundy, np. 01:23:45.</small>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="author" class="form-label">Autor materiału <span class="form-required-field">*</span></label>
+                <input type="text" id="author" name="author" class="form-control" value="{{ video.author|default('') }}" required>
+            </div>
+            <div class="form-group">
+                <label for="publish_date" class="form-label">Data publikacji</label>
+                <div class="input-with-icon">
+                    {# POPRAWKA: Dodajemy domyślną wartość 'now' dla nowych filmów #}
+                    <input type="text" id="publish_date" name="publish_date" class="form-control flatpickr-datetime" value="{{ video.publish_date }}" placeholder="DD.MM.RRRR GG:MM">
+                    <span class="material-symbols-outlined input-icon">calendar_month</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="form-section">
+        <h2>Dostępność i miniaturka</h2>
+        <div class="form-group">
+            <label for="accessibility" class="form-label">Dostępność</label>
+            <select id="accessibility" name="accessibility[]" multiple>
+                {# POPRAWKA: Uzupełniono brakującą pętlę #}
+                {% set selected_accessibility = video.accessibility|default([]) %}
+                {% for acc_opt in video_accessibility %}
+                    <option value="{{ acc_opt }}" {{ acc_opt in selected_accessibility ? 'selected' : '' }}>{{ acc_opt }}</option>
+                {% endfor %}
+            </select>
+        </div>
+         <div class="form-group">
+            <label for="thumbnail_upload" class="form-label">Wgraj miniaturkę</label>
+            <input type="file" id="thumbnail_upload" name="thumbnail_upload" class="form-control" accept="image/jpeg, image/png, image/webp">
+            <small class="add-form-input-info">Jeśli nie wgrasz pliku, spróbujemy pobrać miniaturkę z linku wideo.</small>
+             {% if video and video.thumbnail_url %}<p style="margin-top:10px;"><b>Obecna miniaturka:</b> <a href="{{ video.thumbnail_url }}" target="_blank">zobacz</a></p>{% endif %}
+        </div>
+    </div>
+
+    <div class="form-group" style="padding-top: 20px; text-align: right;">
+        <button type="submit" class="btn btn--primary btn--large">{{ video ? 'Zaktualizuj film' : 'Opublikuj film' }}</button>
+    </div>
+</form>

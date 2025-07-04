@@ -1,0 +1,559 @@
+/* --------------------------------------------------
+   FRONTEND FORMS STYLES
+   Style dla WSZYSTKICH formularzy na frontendzie (wyszukiwanie, publikowanie, logowanie, rejestracja).
+   Zawiera nadpisania dla EasyMDE, Flatpickr.
+   Ujednolicono wygląd pól formularza, z wyraźniejszym polem wyszukiwania.
+   Choices.js teraz również z zaokrągleniami typu "pill".
+----------------------------------------------------- */
+
+.add-form {
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
+
+.form {
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-medium);
+    padding: 20px;
+    box-shadow: var(--shadow-medium);
+    margin-bottom: 30px;
+}
+
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.form-group {
+    font-family: var(--font-family-base);
+    padding: 10px;
+    flex: 1;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.form-label,
+.form-field-label {
+    font-weight: 500;
+    margin-bottom: 5px;
+    color: var(--text-dark);
+}
+
+.form-required-field {
+    color: var(--danger);
+}
+
+.form-section {
+    background: #fff;
+    padding: 30px;
+    border-radius: var(--border-radius-large);
+    box-shadow: var(--shadow-light);
+    margin-bottom: 2rem;
+}
+
+.form-section h3 {
+    font-size: 1.5rem;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+/* --- WSPÓLNE STYLE DLA PÓL FORMULARZA --- */
+.form-select,
+.form-textarea,
+.form-control,
+.form-input {
+        width: 100%;
+        padding: 10px 12px;
+        font-family: var(--font-family-base);
+        font-size: 16px;
+        box-sizing: border-box;
+        border: 0.5px solid;
+        border-color: var(--border-color) !important;
+        border-radius: var(--border-radius-medium);
+        background-color: var(--bg-white) !important;
+        color: var(--text-dark) !important;
+    }
+
+.form-group input:read-only {
+    background-color: #d3d3d3;
+}
+
+/* Wspólny stan FOCUS */
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus,
+.form-control:focus,
+.choices.is-focused .choices__inner,
+.search-input-wrapper:focus-within {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 160, 150, 0.5);
+}
+
+.form-input::placeholder,
+.choices__input::placeholder {
+    color: rgba(0, 0, 0, 0.45);
+}
+
+.form-textarea {
+    min-height: 140px;
+    resize: vertical;
+}
+
+/* Stylizacja SELECT */
+.form-select {
+    background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="%233E3D40"><path d="M2 4l4 4 4-4z"/></svg>');
+    background-position: right 10px center;
+    background-size: 12px;
+    background-repeat: no-repeat;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+/* Checkbox */
+.form-checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.form-checkbox-group input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-small);
+    cursor: pointer;
+    transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+    position: relative;
+    flex-shrink: 0;
+    background-color: var(--bg-white);
+}
+
+.form-checkbox-group input[type="checkbox"]:checked {
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+
+.form-checkbox-group input[type="checkbox"]:checked::after {
+    content: '\2713';
+    color: white;
+    font-size: 14px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.form-checkbox-group input[type="checkbox"]:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 160, 150, 0.5);
+}
+
+.char-count {
+    font-size: 0.9rem;
+    color: var(--text-medium);
+    margin-left: 5px;
+}
+
+.char-count.over {
+    color: var(--danger);
+    font-weight: 600;
+}
+
+.add-form-input-info {
+    font-size: 0.85rem;
+    color: var(--text-dark);
+    margin-top: 5px;
+}
+
+/* --- SEARCH INPUT --- */
+.search-input-wrapper {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    width: 100%;
+    border: 2px solid var(--primary);
+    background-color: var(--bg-white);
+    box-shadow: 0 0 8px rgba(0, 160, 150, 0.3);
+    border-radius: var(--border-radius-pill);
+}
+
+
+.search-input-select .choices.is-focused.is-open {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    width: 100%;
+    border: 2px solid var(--primary);
+    background-color: var(--bg-white);
+    box-shadow: 0 0 8px rgba(0, 160, 150, 0.3);
+    border-radius: var(--border-radius-pill);
+}
+
+.search-input-wrapper:focus-within {
+    border-color: var(--primary-hover);
+    box-shadow: 0 0 12px rgba(0, 160, 150, 0.6);
+}
+
+.search-input-wrapper .search-icon {
+    padding: 10px;
+    color: var(--text-medium);
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.search-input {
+    flex-grow: 1;
+    border: none;
+    padding: 10px 0;
+    padding-left: 0;
+    padding-right: 0;
+    background-color: transparent;
+    font-size: 1rem;
+    color: var(--text-dark);
+}
+
+.search-input:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.search-input::placeholder {
+    color: var(--text-light);
+    opacity: 0.8;
+}
+
+.search-input-wrapper .clear-search-icon {
+    padding: 10px;
+    color: var(--text-medium);
+    font-size: 18px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: color var(--transition-speed);
+}
+
+.search-input-wrapper .clear-search-icon:hover {
+    color: var(--danger);
+}
+
+/* --- FORM-FLEX --- */
+.form-flex {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.form-flex .form-input,
+.form-flex .form-select,
+.form-flex .choices {
+    flex: 1 1 calc(50% - 6px);
+    min-width: 140px;
+}
+
+/* --- Choices.js --- */
+.choices {
+    width: 100%;
+}
+
+.choices__inner {
+    width: 100%;
+    padding: 10px 12px;
+    font-family: var(--font-family-base);
+    font-size: 16px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-white);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.04);
+    border-radius: var(--border-radius-pill);
+    transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.choices__list--single {
+    padding: 0;
+    line-height: normal;
+}
+
+.choices__list--multiple .choices__item {
+    background-color: var(--primary);
+    color: var(--bg-white);
+    border-radius: var(--border-radius-small);
+    padding: 3px 8px;
+    margin: 2px 5px 2px 0;
+    font-family: var(--font-family-base);
+}
+
+.choices__list--multiple .choices__item .choices__button {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.2em;
+}
+
+.choices__list--multiple .choices__item .choices__button:hover {
+    color: var(--bg-white);
+}
+
+.choices__list--dropdown {
+    border: 1px solid var(--border-color);
+    border-top: none;
+    border-radius: 0 0 var(--border-radius-medium) var(--border-radius-medium);
+    box-shadow: var(--shadow-light);
+    background-color: var(--bg-white);
+    font-family: var(--font-family-base);
+    z-index: 1000;
+}
+
+.choices__list--dropdown .choices__item {
+    padding: 8px 10px;
+    font-size: 1rem;
+    color: var(--text-dark);
+}
+
+.choices__list--dropdown .choices__item--selectable.is-highlighted {
+    background-color: var(--bg-light);
+    color: var(--primary);
+}
+
+.choices__list--dropdown .choices__item--selectable {
+    color: var(--text-dark);
+}
+
+.choices[data-type*="select-one"]::after,
+.choices[data-type*="select-multiple"]::after {
+    content: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="%233E3D40"><path d="M2 4l4 4 4-4z"/></svg>');
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    height: 12px;
+    width: 12px;
+}
+
+.choices[data-type*="select-one"].is-open::after,
+.choices[data-type*="select-multiple"].is-open::after {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+/* --- Flatpickr --- */
+.flatpickr-input {
+    background-color: var(--bg-white);
+}
+
+.flatpickr-calendar {
+    font-family: var(--font-family-base);
+    border-radius: var(--border-radius-large);
+    box-shadow: var(--shadow-medium);
+    background-color: var(--bg-white);
+}
+
+.flatpickr-day.selected,
+.flatpickr-day.startRange,
+.flatpickr-day.endRange,
+.flatpickr-day.selected.inRange,
+.flatpickr-day.startRange.inRange,
+.flatpickr-day.endRange.inRange,
+.flatpickr-day.selected:focus,
+.flatpickr-day.startRange:focus,
+.flatpickr-day.endRange:focus,
+.flatpickr-day.selected:hover,
+.flatpickr-day.startRange:hover,
+.flatpickr-day.endRange:hover,
+.flatpickr-day.selected.prevMonth,
+.flatpickr-day.startRange.prevMonth,
+.flatpickr-day.endRange.prevMonth,
+.flatpickr-day.selected.nextMonth,
+.flatpickr-day.startRange.nextMonth,
+.flatpickr-day.endRange.nextMonth {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: var(--bg-white);
+}
+
+.flatpickr-day.inRange {
+    background: rgba(0, 160, 150, 0.1);
+    border-color: rgba(0, 160, 150, 0.1);
+}
+
+.flatpickr-current-month .flatpickr-monthDropdown-months .flatpickr-monthDropdown-month:hover,
+.flatpickr-current-month .flatpickr-monthDropdown-months .flatpickr-monthDropdown-month.active,
+.flatpickr-current-month .flatpickr-monthDropdown-months .flatpickr-monthDropdown-month:focus,
+.flatpickr-current-month .flatpickr-monthDropdown-months .flatpickr-monthDropdown-month:active,
+.flatpickr-current-month input.cur-year:hover,
+.flatpickr-current-month input.cur-year:focus,
+.flatpickr-current-month .flatpickr-prev-month:hover,
+.flatpickr-current-month .flatpickr-next-month:hover {
+    color: var(--primary);
+}
+
+/* --- Password Meter --- */
+meter {
+    width: 100%;
+    height: 8px;
+    margin-top: 4px;
+    display: block;
+}
+
+.password-requirements {
+    list-style: none;
+    padding-left: 0;
+    font-size: 0.9rem;
+    margin: 0.5rem 0 0;
+}
+
+.req-item {
+    color: #e53935;
+}
+
+.req-item.valid {
+    color: #00a096;
+}
+
+/* --- EasyMDE --- */
+.CodeMirror {
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-medium);
+    min-height: 160px;
+    font-family: var(--font-family-base);
+    background-color: var(--bg-white);
+}
+
+.editor-toolbar {
+    background-color: #f4f4f4;
+    border: 1px solid var(--border-color);
+    border-bottom: none;
+    border-radius: var(--border-radius-medium) var(--border-radius-medium) 0 0;
+    padding: 4px;
+    z-index: 3;
+}
+
+.editor-toolbar .fa,
+.editor-toolbar i {
+    font-size: 1rem;
+    color: var(--text-dark);
+}
+
+.editor-toolbar a:hover i,
+.editor-toolbar button:hover i {
+    color: var(--primary);
+}
+
+.editor-toolbar a,
+.editor-toolbar button {
+    margin-right: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+}
+
+.CodeMirror,
+.editor-preview-side {
+    z-index: 1;
+}
+
+/* --- Responsive --- */
+@media (min-width: 768px) {
+    .form-row.two-cols>.form-group {
+        flex: 0 0 calc(50% - 6px);
+    }
+
+    .form-row.three-cols>.form-group {
+        flex: 0 0 calc(33.33% - 8px);
+    }
+}
+
+@media (max-width: 767px) {
+    .form-row {
+        flex-direction: column;
+    }
+
+    .form-row .form-group {
+        width: 100%;
+        min-width: unset;
+        flex-basis: auto;
+    }
+
+    .form-input,
+    .form-select {
+        font-size: 0.9rem;
+    }
+
+    .form-flex {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .form-flex .form-input,
+    .form-flex .form-select,
+    .form-flex .choices,
+    .form-flex .search-input-wrapper,
+    .form-flex .search-input {
+        width: 100%;
+        flex: 0 0 auto;
+    }
+}
+
+
+.autocomplete-results {
+    position: absolute;
+    background: white;
+    border: 1px solid #ccc;
+    max-height: 300px;
+    overflow-y: auto;
+    width: 90%;
+    z-index: 100;
+    margin-top: 75px;
+}
+
+.autocomplete-item {
+    padding: 0.5rem;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+}
+
+.autocomplete-item:hover,
+.autocomplete-item.active {
+    background-color: #f0f0f0;
+}
+
+.loading-spinner {
+    margin-top: 5px;
+    font-size: 0.9rem;
+    color: #888;
+}
+
+/* Style dla pól input z ikonami */
+
+.input-with-icon {
+    position: relative;
+    /* Nadrzędny element dla ikony */
+    display: flex;
+    align-items: center;
+}
+
+.input-with-icon .form-control,
+.input-with-icon .form-input {
+    /* Robimy miejsce na ikonę po lewej stronie */
+    padding-left: 38px !important;
+}
+
+.input-with-icon .input-icon {
+    /* Pozycjonujemy ikonę absolutnie wewnątrz wrappera */
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-light);
+    /* Szary kolor dla subtelności */
+    font-size: 22px;
+    pointer-events: none;
+    /* Sprawia, że można klikać "przez" ikonę */
+}

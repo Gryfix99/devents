@@ -1,0 +1,198 @@
+    /* Style z prefiksem img- aby uniknąć konfliktów */
+    .img-event-graphic {
+        width: 1080px;
+        height: 1350px;
+        position: relative;
+        overflow: hidden;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .img-background-image {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .img-event-graphic.light .img-background-image::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(255, 255, 255, 0.3);
+        z-index: 2;
+        /* backdrop-filter:blur(3px); */
+    }
+
+    .img-event-graphic.dark .img-background-image::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 2;
+        /* backdrop-filter:blur(3px); */
+    }
+
+    .img-overlay-content {
+        position: relative;
+        z-index: 3;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        padding: 60px 40px;
+        text-align: center;
+    }
+
+    .img-info-bar {
+        background: rgba(255, 255, 255, 0.9);
+        width: 70%;
+        padding: 30px;
+        border-radius: 15px;
+        margin-bottom: 40px;
+    }
+
+    .img-event-graphic.dark .img-info-bar {
+        background: rgba(0, 0, 0, 0.8);
+        color: #fff;
+    }
+
+    .img-category {
+        font-size: 36px;
+        font-weight: 700;
+        color: #00a096;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+    }
+
+    .img-event-graphic.dark .img-category {
+        color: #f8b334;
+    }
+
+    .img-title {
+        font-size: 50px;
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: 30px;
+    }
+
+    .img-meta-item {
+        display: flex;
+        align-items: flex-start;
+        /* lub baseline */
+        text-align: left;
+        font-size: 28px;
+        margin-bottom: 15px;
+        flex-wrap: wrap;
+        line-height: 1.4;
+    }
+
+    .img-meta-text {
+        display: inline-block;
+        word-break: break-word;
+        white-space: normal;
+        max-width: calc(100% - 40px);
+        /* dostosuj do szerokości ikony */
+    }
+
+    .img-meta-item .material-symbols-outlined {
+        font-size: 32px;
+        margin-right: 10px;
+    }
+
+    .img-accessibility-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 20px;
+        justify-content: center;
+    }
+
+    .img-accessibility-item {
+        background: #00a096;
+        padding: 8px 20px;
+        border-radius: 30px;
+        font-size: 22px;
+        color: #fff;
+    }
+
+    .img-event-graphic.dark .img-accessibility-item {
+        background: #f8b334;
+        color: #000;
+    }
+
+    .img-transmission-badge {
+        position: absolute;
+        top: 40px;
+        right: 40px;
+        background: #3e3d40;
+        color: #fff;
+        padding: 12px 25px;
+        border-radius: 30px;
+        font-size: 24px;
+        font-weight: 700;
+        z-index: 3;
+    }
+
+    .img-footer-bar {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        padding: 20px 20px;
+        background: #3e3d40;
+        color: #fff;
+        z-index: 3;
+    }
+
+    .img-footer-logo {
+        display: flex;
+        justify-content: center;
+        margin-left: -50px;
+    }
+
+    .img-footer-logo img {
+        height: 150px;
+    }
+
+    .img-price {
+        font-size: 36px;
+        font-weight: 700;
+        justify-self: start;
+    }
+
+    .img-price.free {
+        color: #00a096;
+    }
+
+    .img-event-graphic.dark .img-price.paid {
+        color: #fff;
+    }
+
+    #graphicFull {
+        position: absolute;
+        left: -9999px;
+        top: 0;
+        opacity: 0;
+        pointer-events: none;
+        user-select: none;
+        z-index: -1;
+    }
+
+.img-event-graphic-preview-wrapper {
+    margin: 0;
+    border: 1px solid #ddd;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#graphicPreview {
+    transform: scale(0.4);
+    transform-origin: top left;
+    overflow: visible;
+}

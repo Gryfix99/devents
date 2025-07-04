@@ -1,0 +1,138 @@
+/* --------------------------------------------------
+   ADMIN USERS STYLES
+   Style dla zarządzania użytkownikami w panelu admina (profile, usuwanie konta, itp.).
+   Zawiera style z dawnego 'account-settings.css'.
+----------------------------------------------------- */
+
+/* Kontener główny dla zmiany/edycji konta użytkownika */
+.acc_change_container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+/* Sidebar nawigacji w profilu/ustawieniach użytkownika */
+.sidebar {
+    width: 25%;
+    background-color: var(--bg-white);
+    border-radius: var(--border-radius-large);
+    box-shadow: var(--shadow-light);
+    padding: 20px;
+    flex-shrink: 0;
+}
+
+.profile-card {
+    text-align: center;
+}
+
+.profile-name {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--text-dark);
+    margin-bottom: 20px;
+}
+
+.sidebar-nav {
+    list-style: none;
+    padding: 0;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: var(--border-radius-small);
+    text-decoration: none;
+    color: var(--text-dark);
+    margin: 10px 0;
+    transition: background-color var(--transition-speed);
+}
+
+.nav-link:hover,
+.nav-link.active {
+    background-color: #f0f0f0;
+    /* Lekki szary na hover/active */
+}
+
+/* Ogólne Material Icons dla sidebar */
+.material-icons {
+    margin-right: 10px;
+    font-size: 24px;
+}
+
+/* Główna zawartość strony użytkownika/ustawień konta */
+.main-content {
+    width: 70%;
+    padding: 0 20px;
+    flex-grow: 1;
+}
+
+.content-box {
+    background-color: var(--bg-white);
+    border-radius: var(--border-radius-large);
+    box-shadow: var(--shadow-light);
+    padding: 20px;
+}
+
+/* Link "Usuń konto" w nawigacji sidebara */
+.nav-item.delete {
+    color: var(--danger);
+}
+
+.nav-item.delete:hover {
+    background-color: #f8d7da;
+    /* Czerwony, jaśniejszy na hover */
+}
+
+/* Formularz "Usuń konto" */
+.delete-container {
+    margin-bottom: 20px;
+}
+
+.delete-container h2 {
+    font-weight: 700;
+    font-size: 2rem;
+    color: var(--danger);
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.delete-container p {
+    font-size: 1.125rem;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* .delete-form korzysta z .form w _admin-forms.css */
+/* .delete-form .form-group, .form-label, inputy itp. dziedziczą z _admin-forms.css */
+
+.delete-form .delete-message {
+    margin-top: 16px;
+    /* Może używać klas z _admin-messages.css */
+}
+
+/* Przycisk usuwania (z admin-users.css) - teraz używa ujednoliconej klasy 'btn' */
+.delete-form .btn--danger {
+    /* Użyj konkretnej kombinacji klas */
+    width: 100%;
+    /* Domyślna szerokość dla tego kontekstu */
+    padding: 14px;
+    font-size: 18px;
+    margin-top: 16px;
+}
+
+/* Responsywność dla sidebara i konta użytkownika */
+@media (max-width: 768px) {
+    .acc_change_container {
+        flex-direction: column;
+    }
+
+    .sidebar,
+    .main-content {
+        width: 100%;
+        margin-bottom: 20px;
+        padding: 0;
+    }
+}

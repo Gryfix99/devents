@@ -1,0 +1,71 @@
+{# templates/user/organizer-profile.twig - Wersja ostateczna #}
+<div class="organizer-profile">
+    <header class="organizer-profile__header">
+        <div class="organizer-profile__logo-wrapper">
+            <img src="{{ organizer.logo_url|default(plugin_url ~ 'assets/images/default-logo.png') }}" alt="Logo {{ organizer.name }}" class="organizer-profile__logo">
+        </div>
+        <div class="organizer-profile__info">
+            <h1 class="organizer-profile__name">{{ organizer.name }}</h1>
+            {% if organizer.website %}
+                <a href="{{ organizer.website }}" target="_blank" rel="noopener noreferrer" class="organizer-profile__website">
+                    {{ organizer.website|replace({'http://': '', 'https://': ''}) }}
+                    <span class="material-symbols-outlined">open_in_new</span>
+                </a>
+            {% endif %}
+        </div>
+    </header>
+
+    <div class="organizer-profile__body">
+        <aside class="organizer-profile__sidebar">
+            <div class="organizer-profile__widget">
+                <h3 class="organizer-profile__widget-title">O nas</h3>
+                <div class="organizer-profile__widget-content">
+                    {{ organizer.description ? organizer.description : '<p>Ten organizator nie dodał jeszcze swojego opisu.</p>' }}
+                </div>
+            </div>
+            
+            <div class="organizer-profile__widget">
+                <h3 class="organizer-profile__widget-title">Dane kontaktowe organizacji</h3>
+                <ul class="organizer-profile__contact-list">
+                    {% if organizer.phone %}<li><span class="material-symbols-outlined">call</span> <a href="tel:{{ organizer.phone }}">{{ organizer.phone }}</a></li>{% endif %}
+                    {% if organizer.email %}<li><span class="material-symbols-outlined">email</span> <a href="mailto:{{ organizer.email }}">{{ organizer.email }}</a></li>{% endif %}
+                </ul>
+            </div>
+
+            {# Wyświetlamy ten blok tylko, jeśli istnieją jakiekolwiek dane koordynatora #}
+            {% if organizer.coordinator.first_name or organizer.coordinator.last_name or organizer.coordinator.email or organizer.coordinator.phone %}
+                <div class="organizer-profile__widget">
+                    <h3 class="organizer-profile__widget-title">Koordynator Dostępności</h3>
+                    <ul class="organizer-profile__contact-list">
+                        {# Uproszczona logika dla imienia i nazwiska #}
+                        {% set coordinator_name = (organizer.coordinator.first_name ~ ' ' ~ organizer.coordinator.last_name)|trim %}
+                        {% if coordinator_name %}
+                            <li><span class="material-symbols-outlined">person</span> {{ coordinator_name }}</li>
+                        {% endif %}
+                        
+                        {% if organizer.coordinator.email %}
+                            <li><span class="material-symbols-outlined">email</span> <a href="mailto:{{ organizer.coordinator.email }}">{{ organizer.coordinator.email }}</a></li>
+                        {% endif %}
+                        
+                        {% if organizer.coordinator.phone %}
+                            <li><span class="material-symbols-outlined">call</span> <a href="tel:{{ organizer.coordinator.phone }}">{{ organizer.coordinator.phone }}</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            {% endif %}
+        </aside>
+
+        <main class="organizer-profile__main-content">
+            <h2>Organizowane wydarzenia</h2>
+            {% if events is not empty %}
+                <div class="events-grid">
+                    {% for event in events %}
+                        {% include 'components/event-card.twig' with { 'event': event } %}
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="message-box">Ten organizator nie ma obecnie żadnych zaplanowanych wydarzeń.</div>
+            {% endif %}
+        </main>
+    </div>
+</div>

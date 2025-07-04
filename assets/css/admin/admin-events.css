@@ -1,0 +1,81 @@
+/* --------------------------------------------------
+   ADMIN EVENTS SPECIFIC STYLES
+   Style dla list i edycji wydarzeń w panelu administratora,
+   które są bardzo specyficzne i nie pasują do ogólnych modułów.
+----------------------------------------------------- */
+
+/* Specyficzne style dla formularza edycji/dodawania wydarzeń (np. .add-form, jeśli ma unikalny wygląd) */
+.add-form {
+    /* Kontener dla formularza dodawania, jeśli różni się od .admin-edit-container */
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+/* Style dla listy wydarzeń w adminie */
+.event-list {
+    margin-top: 30px;
+}
+
+.event-list table {
+    /* Dodatkowe style dla tabeli listy wydarzeń, poza _admin-tables.css */
+    margin-top: 20px;
+    border: 1px solid var(--border-color);
+}
+
+.event-list th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.event-list .actions a {
+    /* Style dla linków akcji w tabeli */
+    margin-right: 10px;
+    text-decoration: none;
+    color: #007bff;
+    /* Konkretny kolor linku akcji, jeśli nie z zmiennych */
+}
+
+.event-list .actions a:hover {
+    text-decoration: underline;
+}
+
+/* Modal podglądu grafiki wydarzenia w adminie */
+/* Modal podglądu grafiki wydarzenia w adminie - dostosowany */
+#modal-overlay {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    overflow: auto;
+    padding: 50px 0;
+}
+
+#modal-overlay .modal-content {
+    background: var(--bg-white);
+    margin: 0 auto;
+    padding: 30px 40px;
+    border-radius: 15px;
+    width: 620px;
+    max-width: 90%;
+    position: relative;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    font-family: 'Poppins', sans-serif;
+}
+
+#modal-overlay .close-modal {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 28px;
+    color: #888;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+#modal-overlay .close-modal:hover {
+    color: #222;
+}

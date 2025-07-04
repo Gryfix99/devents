@@ -1,0 +1,64 @@
+{# templates/components/event-card.twig - Wersja ostateczna #}
+<article class="card_event {% if is_current %}card_event--current{% endif %}" data-category="{{ event.category|e }}">
+    {% if is_current %}
+        <div class="card_current-indicator">Trwa teraz</div>
+    {% endif %}
+
+    <div class="card_image-wrapper"> {# Nowy wrapper dla nakładek #}
+        <a href="{{ event.permalink }}" class="card_image-link">
+            <div class="card_image">
+                {% if event.image_url %}
+                    <img src="{{ event.image_url|e }}" alt="{{ event.image_alt_text|default(event.title)|e }}">
+                {% else %}
+                    <div class="card_image-placeholder">
+                        <span class="material-symbols-outlined">event</span>
+                    </div>
+                {% endif %}
+            </div>
+        </a>
+        {# Cena jako nakładka na obrazku #}
+        <div class="card_price-overlay">
+            {% if event.price > 0 %}
+                {{ event.price|number_format(2, ',', ' ') }} zł
+            {% else %}
+                Bezpłatne
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="card_content">
+        <span class="card_category">{{ event.category|e }}</span>
+        <h3 class="card_title">
+            <a href="{{ event.permalink }}" style="color: inherit; text-decoration: none;">{{ event.title|e }}</a>
+        </h3>
+        
+        <div class="card_info">
+            <div class="card_detail-item">
+                <span class="material-symbols-outlined icon">calendar_today</span>
+                <span>{{ event.start_datetime|date('d.m.Y') }}</span>
+            </div>
+             <div class="card_detail-item">
+                <span class="material-symbols-outlined icon">schedule</span>
+                <span>{{ event.start_datetime|date('H:i') }}</span>
+            </div>
+            {% if event.location %}
+                <div class="card_detail-item">
+                    <span class="material-symbols-outlined icon">location_on</span>
+                    <span>{{ event.location|e }}</span>
+                </div>
+            {% endif %}
+        </div>
+        
+        <div class="card_accessibility">
+            {% for item in event.accessibility|split(',')|slice(0, 3) %}
+                <span class="card_accessibility-pill">{{ item|trim }}</span>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="card_footer">
+        <a href="{{ event.permalink }}" class="btn btn--primary btn--full-width">
+            Zobacz szczegóły
+        </a>
+    </div>
+</article>

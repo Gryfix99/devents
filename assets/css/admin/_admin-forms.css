@@ -1,0 +1,475 @@
+/* --------------------------------------------------
+   ADMIN FORMS STYLES
+   Style dla WSZYSTKICH formularzy używanych w panelu administratora (edycja, dodawanie, ustawienia).
+   Dotyczy inputów, selectów, labeli, checkboxów.
+   Zawiera także nadpisania dla EasyMDE, Flatpickr, Choices.js i Nominatim.
+----------------------------------------------------- */
+
+/* Ogólny styl kontenera formularza (np. dla dodawania/edycji) */
+.form,
+.admin-edit-container {
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-large);
+    padding: 24px;
+    box-shadow: var(--shadow-medium);
+    margin: 40px auto;
+    max-width: 800px;
+}
+
+/* Sekcje formularza */
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    font-family: var(--font-family-base);
+    padding: 10px;
+    flex: 1;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    /* Dla liczników/spinnerów/autocomplete */
+    margin-bottom: 20px;
+}
+
+/* Etykiety pól */
+.form-label,
+.form-field-label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: var(--text-dark);
+}
+
+.form-required-field {
+    color: var(--danger);
+}
+
+/* NOWA KLASA: Podstawowe style wizualne dla wszystkich pól formularza (input, select, textarea) */
+.form-field-base-visuals {
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-medium);
+    background-color: var(--bg-white);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.04);
+    transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+/* Ogólne style dla inputów, selectów, textarea */
+/* Te elementy otrzymają podstawowe style wizualne poprzez form-field-base-visuals */
+.form-input,
+.form-select,
+.form-textarea,
+.form-control {
+    width: 100%;
+    padding: 10px 12px;
+    font-family: var(--font-family-base);
+    font-size: 16px;
+    box-sizing: border-box;
+    border: none;
+    /* Ramki z form-field-base-visuals */
+    background-color: transparent;
+    /* Tło z form-field-base-visuals */
+    box-shadow: none;
+    /* Cień z form-field-base-visuals */
+    border-radius: 0;
+    /* Zaokrąglenie z form-field-base-visuals lub wrapper */
+}
+
+.form-group input:read-only {
+    background-color: #d3d3d3;
+}
+
+/* WSPÓLNY STAN FOCUS DLA PÓL FORMULARZA */
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus,
+.form-control:focus,
+.choices.is-focused .choices__inner,
+/* Choices.js focus */
+.location-input-container:focus-within
+
+/* Nominatim input focus */
+    {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 160, 150, 0.5);
+}
+
+.form-input::placeholder,
+.choices__input::placeholder {
+    color: rgba(0, 0, 0, 0.45);
+}
+
+/* Textarea specyficznie (np. EasyMDE) */
+.form-textarea {
+    min-height: 140px;
+    resize: vertical;
+}
+
+/* Stylizacja select – z ikoną strzałki */
+.form-select {
+    background: transparent url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="%233E3D40"><path d="M2 4l4 4 4-4z"/></svg>') no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+/* Checkbox */
+.form-checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.form-checkbox-group input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-small);
+    cursor: pointer;
+    transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+    position: relative;
+    flex-shrink: 0;
+    background-color: var(--bg-white);
+}
+
+.form-checkbox-group input[type="checkbox"]:checked {
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+
+.form-checkbox-group input[type="checkbox"]:checked::after {
+    content: '\2713';
+    color: white;
+    font-size: 14px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.form-checkbox-group input[type="checkbox"]:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 160, 150, 0.5);
+}
+
+/* Licznik znaków */
+.char-count {
+    font-size: 0.85rem;
+    color: var(--text-medium);
+    margin-left: 5px;
+}
+
+.char-count.over {
+    color: var(--danger);
+    font-weight: 600;
+}
+
+.add-form-input-info {
+    font-size: 0.85rem;
+    color: var(--text-dark);
+    margin-top: 4px;
+}
+
+/* --- STYLE DLA POLA LOKALIZACJI (NOMINATIM) W ADMINIE --- */
+.location-input-container {
+    position: relative;
+    width: 100%;
+    /* Dziedziczy podstawowe style wizualne z form-field-base-visuals */
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-white);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.04);
+    border-radius: var(--border-radius-medium);
+    transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.location-input-container #location {
+    /* Sam input wewnątrz containera */
+    border: none;
+    background-color: transparent;
+    box-shadow: none;
+    border-radius: 0;
+    padding: 10px 12px;
+    /* Standardowy padding form-input */
+}
+
+.location-input-container #location:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+#location-loading-spinner {
+    display: none;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 4px solid rgba(0, 0, 0, .1);
+    border-left-color: #09f;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+    z-index: 10;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+#autocomplete-results {
+    position: absolute;
+    width: 100%;
+    border: 1px solid var(--border-color);
+    border-top: none;
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: var(--bg-white);
+    z-index: 1000;
+    box-shadow: var(--shadow-medium);
+}
+
+.autocomplete-item {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+}
+
+.autocomplete-item:last-child {
+    border-bottom: none;
+}
+
+.autocomplete-item:hover,
+.autocomplete-item.active {
+    background-color: var(--bg-light);
+}
+
+
+/* --- Stylizacja Choices.js (ADMIN) --- */
+.choices {
+    width: 100%;
+}
+
+.choices__inner {
+    width: 100%;
+    padding: 10px 12px;
+    /* Dostosowany padding do form-input */
+    font-family: var(--font-family-base);
+    font-size: 16px;
+    min-height: auto;
+    border: none;
+    /* Ramka z form-field-base-visuals */
+    background-color: transparent;
+    /* Tło z form-field-base-visuals */
+    box-shadow: none;
+    /* Cień z form-field-base-visuals */
+    border-radius: var(--border-radius-medium);
+    /* Standardowe zaokrąglenie */
+    transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+    /* Dodajemy jawnie wizualne style, jeśli Choices.js nie dziedziczy ich z selektora <select> */
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-white);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.choices__list--single {
+    /* Dla pojedynczego wyboru */
+    padding: 0;
+    line-height: normal;
+}
+
+.choices__list--multiple .choices__item {
+    /* Wybrane elementy w multiselect */
+    background-color: var(--primary);
+    color: var(--bg-white);
+    border-radius: var(--border-radius-small);
+    padding: 3px 8px;
+    margin: 2px 5px 2px 0;
+    font-family: var(--font-family-base);
+}
+
+.choices__list--multiple .choices__item .choices__button {
+    /* Przycisk usuwania w multiselect */
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.2em;
+}
+
+.choices__list--multiple .choices__item .choices__button:hover {
+    color: var(--bg-white);
+}
+
+.choices__list--dropdown {
+    /* Wypadające menu */
+    border: 1px solid var(--border-color);
+    border-top: none;
+    border-radius: 0 0 var(--border-radius-medium) var(--border-radius-medium);
+    box-shadow: var(--shadow-light);
+    background-color: var(--bg-white);
+    font-family: var(--font-family-base);
+}
+
+.choices__list--dropdown .choices__item {
+    /* Opcje w dropdownie */
+    padding: 8px 10px;
+    font-size: 1rem;
+    color: var(--text-dark);
+}
+
+.choices__list--dropdown .choices__item--selectable.is-highlighted {
+    /* Podświetlona opcja */
+    background-color: var(--bg-light);
+    color: var(--primary);
+}
+
+
+/* Stylizacja Flatpickr input */
+.flatpickr-input {
+    background-color: var(--bg-white);
+}
+
+.flatpickr-calendar {
+    font-family: var(--font-family-base);
+    border-radius: var(--border-radius-large);
+    box-shadow: var(--shadow-medium);
+    background-color: var(--bg-white);
+}
+
+/* Style dla dni kalendarza */
+.flatpickr-day.selected,
+.flatpickr-day.startRange,
+.flatpickr-day.endRange,
+.flatpickr-day.selected.inRange,
+.flatpickr-day.startRange.inRange,
+.flatpickr-day.endRange.inRange,
+.flatpickr-day.selected:focus,
+.flatpickr-day.startRange:focus,
+.flatpickr-day.endRange:focus,
+.flatpickr-day.selected:hover,
+.flatpickr-day.startRange:hover,
+.flatpickr-day.endRange:hover,
+.flatpickr-day.selected.prevMonth,
+.flatpickr-day.startRange.prevMonth,
+.flatpickr-day.endRange.prevMonth,
+.flatpickr-day.selected.nextMonth,
+.flatpickr-day.startRange.nextMonth,
+.flatpickr-day.endRange.nextMonth {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: var(--bg-white);
+}
+
+.flatpickr-day.inRange {
+    background: rgba(0, 160, 150, 0.1);
+    border-color: rgba(0, 160, 150, 0.1);
+}
+
+/* Nawigacja w kalendarzu (miesiące, lata, strzałki) */
+.flatpickr-current-month .flatpickr-monthDropdown-months .flatpickr-monthDropdown-month:hover,
+.flatpickr-current-month .flatpickr-monthDropdown-months .flatpickr-monthDropdown-month.active,
+.flatpickr-current-month .flatpickr-monthDropdown-months .flatpickr-monthDropdown-month:focus,
+.flatpickr-current-month .flatpickr-monthDropdown-months .flatpickr-monthDropdown-month:active,
+.flatpickr-current-month input.cur-year:hover,
+.flatpickr-current-month input.cur-year:focus,
+.flatpickr-current-month .flatpickr-prev-month:hover,
+.flatpickr-current-month .flatpickr-next-month:hover {
+    color: var(--primary);
+}
+
+
+/* Style dla miernika siły hasła (np. na stronie rejestracji) */
+meter {
+    width: 100%;
+    height: 8px;
+    margin-top: 4px;
+    display: block;
+}
+
+.password-requirements {
+    list-style: none;
+    padding-left: 0;
+    font-size: 0.9rem;
+    margin: 0.5rem 0 0;
+}
+
+.req-item {
+    color: #e53935;
+    /* Czerwony */
+}
+
+.req-item.valid {
+    color: #00a096;
+    /* Zielony */
+}
+
+/* --- OVERRIDES DLA BIBLIOTEK ZEWNĘTRZNYCH (frontend) --- */
+/* EasyMDE override */
+.CodeMirror {
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-medium);
+    min-height: 160px;
+    font-family: var(--font-family-base);
+    background-color: var(--bg-white);
+}
+
+.editor-toolbar {
+    background-color: #f4f4f4;
+    border: 1px solid var(--border-color);
+    border-bottom: none;
+    border-radius: var(--border-radius-medium) var(--border-radius-medium) 0 0;
+    padding: 4px;
+    z-index: 3;
+}
+
+.editor-toolbar .fa,
+.editor-toolbar i {
+    font-size: 1rem;
+    color: var(--text-dark);
+}
+
+.editor-toolbar a:hover i,
+.editor-toolbar button:hover i {
+    color: var(--primary);
+}
+
+.editor-toolbar a,
+.editor-toolbar button {
+    margin-right: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+}
+
+.CodeMirror,
+.editor-preview-side {
+    z-index: 1;
+}
+
+/* Responsywność formularzy */
+@media (min-width: 768px) {
+    .form-row.two-cols>.form-group {
+        flex: 0 0 calc(50% - 6px);
+    }
+
+    .form-row.three-cols>.form-group {
+        flex: 0 0 calc(33.33% - 8px);
+    }
+}
+
+@media (max-width: 768px) {
+
+    .form-input,
+    .form-select {
+        font-size: 0.9rem;
+    }
+}

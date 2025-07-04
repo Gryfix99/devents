@@ -1,0 +1,300 @@
+/* --------------------------------------------------
+   EMAIL STYLES
+   Style przeznaczone do inlinowania w szablonach e-mail.
+   NIE NALEŻY ENQUEUE'OWAĆ TEGO PLIKU PRZEZ WORDPRESS.
+----------------------------------------------------- */
+
+/* Reset dla e-maili */
+body, table, td, a { margin: 0; padding: 0; }
+img { border: 0; line-height: 100%; text-decoration: none; -ms-interpolation-mode: bicubic; }
+table { border-collapse: collapse !important; }
+
+/* Ustawienia podstawowe body */
+body {
+    width: 100% !important;
+    height: 100% !important;
+    background-color: #f4f4f4;
+    font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #333333;
+}
+
+/* Preheader (ukryty tekst w podglądzie e-maila) */
+.preheader {
+    display: none !important;
+    visibility: hidden;
+    mso-hide: all;
+    font-size: 1px;
+    line-height: 1px;
+    max-height: 0;
+    max-width: 0;
+    opacity: 0;
+    overflow: hidden;
+}
+
+/* Główny kontener e-maila */
+.email-wrapper {
+    width: 100%;
+    background-color: #f4f4f4;
+    padding: 20px 0;
+}
+.email-content {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Nagłówek e-maila */
+.email-header {
+    background-color: #00A096; /* Zielony */
+    padding: 20px;
+    text-align: center;
+}
+.email-header img {
+    max-height: 50px;
+    display: inline-block;
+    vertical-align: middle;
+    border: 0;
+}
+.email-header a {
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+/* Treść e-maila */
+.email-body {
+    padding: 20px;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #3E3D40; /* Ciemny szary */
+}
+.email-body h1, .email-body h2, .email-body h3 {
+    color: #F8B334; /* Pomarańczowy/złoty */
+    margin-bottom: 12px;
+    font-weight: normal;
+}
+.email-body p {
+    margin-bottom: 16px;
+}
+.email-body a {
+    color: #00A096; /* Zielony */
+    text-decoration: underline;
+}
+
+/* Przyciski w e-mailach */
+.button {
+    display: inline-block;
+    background-color: #00A096;
+    color: #ffffff !important;
+    text-decoration: none !important;
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #00A096;
+}
+.button:hover {
+    background-color: #3E3D40 !important; /* Ciemny szary na hover */
+    border-color: #3E3D40 !important;
+}
+
+/* Stopka e-maila */
+.email-footer {
+    background-color: #00A096; /* Zielony */
+    color: #ffffff;
+    text-align: center;
+    padding: 15px;
+    font-size: 14px;
+}
+.email-footer a {
+    color: #ffffff;
+    text-decoration: none;
+    margin: 0 5px;
+}
+.email-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Responsywność dla e-maili */
+@media screen and (max-width: 480px) {
+    .email-body {
+        padding: 15px !important;
+        font-size: 14px !important;
+    }
+    .button {
+        width: 100% !important;
+        box-sizing: border-box;
+        text-align: center !important;
+    }
+    .email-header, .email-footer {
+        padding: 15px !important;
+    }
+}/* --------------------------------------------------
+   EMAIL STYLES
+   Style przeznaczone do inlinowania w szablonach e-mail.
+   NIE NALEŻY ENQUEUE'OWAĆ TEGO PLIKU PRZEZ WORDPRESS.
+----------------------------------------------------- */
+
+/* Reset dla e-maili */
+body,
+table,
+td,
+a {
+    margin: 0;
+    padding: 0;
+}
+
+img {
+    border: 0;
+    line-height: 100%;
+    text-decoration: none;
+    -ms-interpolation-mode: bicubic;
+}
+
+table {
+    border-collapse: collapse !important;
+}
+
+/* Ustawienia podstawowe body */
+body {
+    width: 100% !important;
+    height: 100% !important;
+    background-color: #f4f4f4;
+    font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #333333;
+}
+
+/* Preheader (ukryty tekst w podglądzie e-maila) */
+.preheader {
+    display: none !important;
+    visibility: hidden;
+    mso-hide: all;
+    font-size: 1px;
+    line-height: 1px;
+    max-height: 0;
+    max-width: 0;
+    opacity: 0;
+    overflow: hidden;
+}
+
+/* Główny kontener e-maila */
+.email-wrapper {
+    width: 100%;
+    background-color: #f4f4f4;
+    padding: 20px 0;
+}
+
+.email-content {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Nagłówek e-maila */
+.email-header {
+    background-color: #00A096;
+    /* Zielony */
+    padding: 20px;
+    text-align: center;
+}
+
+.email-header img {
+    max-height: 50px;
+    display: inline-block;
+    vertical-align: middle;
+    border: 0;
+}
+
+.email-header a {
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+/* Treść e-maila */
+.email-body {
+    padding: 20px;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #3E3D40;
+    /* Ciemny szary */
+}
+
+.email-body h1,
+.email-body h2,
+.email-body h3 {
+    color: #F8B334;
+    /* Pomarańczowy/złoty */
+    margin-bottom: 12px;
+    font-weight: normal;
+}
+
+.email-body p {
+    margin-bottom: 16px;
+}
+
+.email-body a {
+    color: #00A096;
+    /* Zielony */
+    text-decoration: underline;
+}
+
+/* Przyciski w e-mailach */
+.button {
+    display: inline-block;
+    background-color: #00A096;
+    color: #ffffff !important;
+    text-decoration: none !important;
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #00A096;
+}
+
+.button:hover {
+    background-color: #3E3D40 !important;
+    /* Ciemny szary na hover */
+    border-color: #3E3D40 !important;
+}
+
+/* Stopka e-maila */
+.email-footer {
+    background-color: #00A096;
+    /* Zielony */
+    color: #ffffff;
+    text-align: center;
+    padding: 15px;
+    font-size: 14px;
+}
+
+.email-footer a {
+    color: #ffffff;
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+.email-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Responsywność dla e-maili */
+@media screen and (max-width: 480px) {
+    .email-body {
+        padding: 15px !important;
+        font-size: 14px !important;
+    }
+
+    .button {
+        width: 100% !important;
+        box-sizing: border-box;
+        text-align: center !important;
+    }
+
+    .email-header,
+    .email-footer {
+        padding: 15px !important;
+    }
+}

@@ -1,0 +1,156 @@
+/* ========================================================================
+   STYLE DLA PROFILU ORGANIZATORA (bez karty wydarzenia)
+   ======================================================================== */
+
+/* --- Główny kontener profilu --- */
+.organizer-profile {
+    max-width: 1200px;
+    margin: 3rem auto;
+    padding: 1rem;
+    font-family: var(--font-family-base);
+}
+
+/* --- Nagłówek profilu --- */
+.organizer-profile__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem;
+    background-color: var(--bg-white);
+    border-radius: var(--border-radius-large);
+    box-shadow: var(--shadow-medium);
+    margin-bottom: 2rem;
+}
+
+.organizer-profile__logo-wrapper {
+    flex-shrink: 0;
+}
+
+.organizer-profile__logo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--bg-white);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.organizer-profile__info {
+    flex-grow: 1;
+}
+
+.organizer-profile__name {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin: 0 0 0.5rem 0;
+    line-height: 1.2;
+}
+
+.organizer-profile__website {
+    font-size: 1.1rem;
+    color: var(--text-medium);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    text-decoration: none !important;
+}
+
+.organizer-profile__website:hover {
+    color: var(--primary);
+}
+
+.organizer-profile__website .material-symbols-outlined {
+    font-size: 1rem;
+}
+
+/* --- Główna część profilu (dwie kolumny) --- */
+.organizer-profile__body {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+/* --- Kolumna boczna (o nas, kontakt) --- */
+.organizer-profile__sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    position: sticky;
+    top: 2rem;
+}
+
+.organizer-profile__widget {
+    background-color: var(--bg-white);
+    padding: 1.5rem;
+    border-radius: var(--border-radius-large);
+    box-shadow: var(--shadow-light);
+}
+
+.organizer-profile__widget-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.organizer-profile__widget-content {
+    line-height: 1.6;
+    color: var(--text-medium);
+}
+
+.organizer-profile__contact-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.organizer-profile__contact-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--text-medium);
+}
+
+.organizer-profile__contact-list li .material-symbols-outlined {
+    color: var(--primary);
+}
+
+/* --- Główna treść (lista wydarzeń) --- */
+.organizer-profile__main-content h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+}
+
+.events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+/* --- Responsywność dla profilu --- */
+@media (max-width: 992px) {
+    .organizer-profile__body {
+        grid-template-columns: 1fr;
+    }
+
+    .organizer-profile__sidebar {
+        position: static;
+    }
+}
+
+@media (max-width: 768px) {
+    .organizer-profile__header {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+}

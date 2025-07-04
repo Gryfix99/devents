@@ -1,0 +1,40 @@
+/* --------------------------------------------------
+   FRONTEND MASTER STYLESHEET
+   Główny plik stylów dla publicznej części witryny.
+   Importuje wszystkie podkomponenty CSS frontendu.
+----------------------------------------------------- */
+
+@import '../_base.css';
+/* Globalne style bazowe */
+@import '../_utilities.css';
+/* Globalne klasy pomocnicze */
+@import '_components.css';
+/* Ogólne reużywalne komponenty (kontenery, nagłówki, liczniki) */
+@import '_cards.css';
+/* Wygląd KART wydarzeń i materiałów */
+@import '_buttons.css';
+/* Style dla WSZYSTKICH przycisków na frontendzie */
+@import '_frontend-forms.css';
+/* Style dla WSZYSTKICH formularzy na frontendzie */
+@import '_messages.css';
+/* Style komunikatów sukcesu/błędów/announcement na frontendzie */
+@import 'homepage.css';
+/* Style dla sekcji na stronie głównej */
+@import 'events.css';
+/* Style dla wydarzeń */
+@import 'videos.css';
+/* Style dla filmów */
+@import 'ranking.css';
+/* Style dla sekcji rankingu */
+@import 'modal.css';
+/* Style dla modali */
+@import 'auth.css';
+/* Style dla autoryzacji użytkowników */
+@import 'organizer-profile.css';
+/* Style dla panelu organizatora publicznie */
+
+
+/* Tutaj możesz dodać bardzo ogólne style, które dotyczą całości frontendu
+   i nie pasują do żadnego z zaimportowanych plików. */
+
+   

@@ -1,0 +1,60 @@
+{# Szablon dla generatora grafik w modalu #}
+<div class="graphic-generator-content">
+    <h3>Generator Grafiki dla: "{{ event.title|e }}"</h3>
+
+    <div style="text-align:center; margin-bottom:20px; padding:10px; background:#f9f9f9; border-radius:4px;">
+        <div class="theme-toggle" style="margin-bottom:15px;">
+            <button id="light-btn" class="button">Jasny motyw</button>
+            <button id="dark-btn" class="button active">Ciemny motyw</button>
+        </div>
+        <button id="download-btn" class="button button-primary">Pobierz grafikę</button>
+    </div>
+
+    <div class="img-event-graphic-preview-wrapper">
+        <div id="graphicPreview" class="img-event-graphic dark">
+        </div>
+    </div>
+
+    <!-- Niewidoczna, pełnowymiarowa wersja do renderowania przez html2canvas -->
+    <div id="graphicFull">
+        <div class="img-event-graphic dark" data-event-id="{{ event.id }}">
+            <div class="img-background-image" style="background-image: url('{{ image_url|e('css') }}');"></div>
+            {% if is_online %}<div class="img-transmission-badge">🔴 TRANSMISJA ONLINE</div>{% endif %}
+            <div class="img-overlay-content">
+              <div class="img-info-bar">
+                <div class="img-category">{{ category|e }}</div>
+                <div class="img-title">{{ title|e }}</div>
+                
+                <div class="img-meta-wrapper">
+                    <div class="img-meta-item"><span class="material-symbols-outlined">calendar_month</span><span>{{ date }}</span></div>
+                    <div class="img-meta-item"><span class="material-symbols-outlined">schedule</span><span>{{ time }}</span></div>
+                    {% if event.location %}
+                        <div class="img-meta-item">
+                            <span class="material-symbols-outlined">map</span>
+                            <span class="img-meta-text img-break-word">{{ event.location|e }}</span>
+                        </div>
+                    {% endif %}
+                    {% if organizer %}
+                        <div class="img-meta-item">
+                            <span class="material-symbols-outlined">person</span>
+                            <span class="img-meta-text img-break-word">{{ organizer|e }}</span>
+                        </div>
+                    {% endif %}
+                </div>
+
+                {% if access %}
+                  <div class="img-accessibility-list">
+                    {% for a in access %}
+                      <div class="img-accessibility-item">{{ a|e }}</div>
+                    {% endfor %}
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+            <div class="img-footer-bar">
+              <div class="img-price {{ price_class }}">{{ price_label }}</div>
+              <div class="img-footer-logo"><img src="{{ logo_url|e('html_attr') }}" alt="DEvents Logo"></div>
+            </div>
+        </div>
+    </div>
+</div>

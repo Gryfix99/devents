@@ -1,0 +1,196 @@
+/* --------------------------------------------------
+   ADMIN TABLES STYLES
+   Ogólne style dla tabel danych w panelu administratora (listy wydarzeń, użytkowników, materiałów).
+   Zawiera responsywność tabel.
+----------------------------------------------------- */
+
+/* Ogólne style dla tabel - wspólna baza */
+.base-table {
+    /* Możesz zastosować tę klasę do Twoich niestandardowych tabel admina */
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.base-table th,
+.base-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--border-color);
+    text-align: left;
+}
+
+/* Style dla standardowej tabeli listy WordPress (.wp-list-table) */
+.wp-list-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: var(--border-radius-large);
+    overflow: hidden;
+    box-shadow: var(--shadow-medium);
+    margin-bottom: 20px;
+}
+
+.wp-list-table th,
+.wp-list-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--border-color);
+    text-align: left;
+}
+
+.wp-list-table thead {
+    background: var(--primary);
+    /* Użycie koloru primary */
+    color: var(--bg-white);
+    /* Biały tekst */
+    text-align: center;
+}
+
+.wp-list-table tbody tr:nth-child(even) {
+    background: var(--bg-light);
+}
+
+.wp-list-table tbody tr:hover {
+    background: #e6f7f5;
+    /* Jasnozielony na hover */
+}
+
+/* Style dla akcji w tabeli (np. przyciski edytuj/usuń) */
+.admin-table .actions {
+    /* Może być zastosowane do .wp-list-table lub innych tabel admina */
+    white-space: nowrap;
+}
+
+.admin-table .actions .btn {
+    /* Użycie ujednoliconej klasy .btn */
+    margin-left: 5px;
+    padding: 6px 12px;
+    font-size: 13px;
+}
+
+.row-actions {
+    margin-top: 10px;
+    /* Odstęp od informacji o wydarzeniu */
+    display: flex;
+    flex-wrap: wrap;
+    /* Zapewnia zawijanie przycisków na mniejszych ekranach */
+    gap: 5px;
+    /* Odstęp między przyciskami */
+}
+
+
+/* --- Responsywność tabel (devents-responsive-table) --- */
+
+.desktop-only {
+    display: table-cell !important;
+    /* Domyślnie pokaż na desktopie */
+}
+
+@media screen and (max-width: 782px) {
+    /* Punkt przełamania dla admina WP */
+
+    /* Ukryj nagłówek tabeli */
+    .devents-responsive-table thead,
+    .devents-responsive-table tfoot {
+        display: none;
+    }
+
+    /* Zmień wiersze na bloki */
+    .devents-responsive-table tr {
+        display: block;
+        margin-bottom: 15px;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius-small);
+        padding: 10px;
+        background: var(--bg-white);
+    }
+
+    /* Ukryj wszystkie kolumny tabeli, z wyjątkiem tych, które mają być specjalnie wyświetlone */
+    .devents-responsive-table th,
+    .devents-responsive-table td {
+        display: none;
+    }
+
+    /* Pokaż kolumnę "responsive-main-info" i ustaw jej styl */
+    .devents-responsive-table td.responsive-main-info {
+        display: block;
+        text-align: left;
+        padding: 0;
+        position: relative;
+        width: 100%;
+    }
+
+    .devents-responsive-table td.responsive-main-info:before {
+        display: none;
+        /* Ukryj etykietę dla tej kolumny */
+    }
+
+    /* Stylizacja zawartości wewnątrz responsive-main-info */
+    .devents-responsive-table td.responsive-main-info .checkbox-wrapper {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        width: 20px;
+        height: 20px;
+    }
+
+    .devents-responsive-table td.responsive-main-info strong a {
+        font-size: 1.1em;
+        display: block;
+        margin-bottom: 5px;
+        margin-left: 40px;
+        /* Przestrzeń dla checkboxa */
+        padding-top: 5px;
+    }
+
+    .devents-responsive-table td.responsive-main-info .responsive-meta {
+        font-size: 0.9em;
+        color: var(--text-medium);
+        margin-left: 40px;
+        /* Przestrzeń dla checkboxa */
+        margin-bottom: 5px;
+    }
+
+    .devents-responsive-table td.responsive-main-info .responsive-meta span {
+        display: block;
+        /* Każda informacja w nowej linii */
+        padding-bottom: 3px;
+    }
+
+    /* Filtry i nawigacja tabeli */
+    .devents-filters input[type="text"],
+    .devents-filters input[type="date"],
+    .devents-filters .btn,
+    /* Ujednolicone */
+    .devents-filters select {
+        display: block;
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .tablenav .actions {
+        float: none;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .tablenav .actions select,
+    .tablenav .actions input[type="submit"] {
+        width: 100%;
+    }
+
+    .tablenav-pages {
+        float: none;
+        text-align: center;
+        width: 100%;
+    }
+
+    /* Pokaż kontener sortowania mobilnego na mobile */
+    .mobile-sort-controls {
+        display: block;
+        margin-bottom: 15px;
+    }
+
+    /* Ukrycie kolumn "desktop-only" w widoku mobilnym */
+    .desktop-only {
+        display: none !important;
+    }
+}

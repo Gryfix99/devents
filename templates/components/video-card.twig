@@ -1,0 +1,49 @@
+{# templates/components/video-card.twig - Wersja z nową sekcją dostępności #}
+
+<article class="card_event" data-category="{{ video.category|e }}">
+    <a href="{{ video.permalink }}" class="card_image-link">
+        <div class="card_image">
+            <img src="{{ video.thumbnail }}" alt="{{ video.title|e }}">
+            {% if video.duration %}
+                <span class="card_current-indicator" style="background: rgba(0,0,0,0.7); right: 5px; top: 5px; transform: rotate(0); padding: 2px 8px; font-size: 12px;">
+                    {{ video.duration }}
+                </span>
+            {% endif %}
+        </div>
+    </a>
+    <div class="card_content">
+        <span class="card_category">{{ video.category|e }}</span>
+        <h3 class="card_title">
+             <a href="{{ video.permalink }}" style="text-decoration:none; color:inherit;">{{ video.title|e }}</a>
+        </h3>
+
+        {# Informacje o serii i autorze #}
+        <div class="card_info">
+            {% if video.series_name %}
+                <div class="card_detail-item">
+                    <span class="material-symbols-outlined icon">collections_bookmark</span>
+                    <span>{{ video.series_name }}</span>
+                </div>
+            {% endif %}
+             <div class="card_detail-item">
+                <span class="material-symbols-outlined icon">person</span>
+                <span>{{ video.author }}</span>
+            </div>
+        </div>
+
+        {# NOWA, PRZENIESIONA NA DÓŁ SEKCJA DOSTĘPNOŚCI #}
+        {% if video.accessibility and video.accessibility|trim is not empty %}
+            <div class="card_accessibility">
+                {% for item in video.accessibility|split(',') %}
+                    <span class="card_accessibility-pill">{{ item|trim }}</span>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    <div class="card_footer">
+        {# Usunęliśmy stąd datę publikacji #}
+        <a href="{{ video.permalink }}" class="btn btn--primary btn--small btn--full-width">
+            Zobacz materiał
+        </a>
+    </div>
+</article>

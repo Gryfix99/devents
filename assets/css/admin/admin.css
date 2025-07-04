@@ -1,0 +1,58 @@
+/* --------------------------------------------------
+   ADMIN MASTER STYLESHEET
+   Główny plik stylów dla panelu administratora wtyczki.
+   Importuje wszystkie podkomponenty CSS admina.
+----------------------------------------------------- */
+
+@import '../_base.css';
+/* Globalne style bazowe (zawiera :root zmienne) */
+@import '../_utilities.css';
+/* Globalne klasy pomocnicze */
+@import '_admin-forms.css';
+/* Style formularzy admina */
+@import '_admin-tables.css';
+/* Style tabel admina */
+@import '_admin-buttons.css';
+/* Style przycisków admina */
+@import '_admin-messages.css';
+/* Style komunikatów admina */
+@import 'admin-settings.css';
+/* Style dla ogólnych ustawień wtyczki */
+@import 'admin-users.css';
+/* Style dla użytkowników i ustawień konta */
+@import 'admin-events.css';
+/* Specyficzne style dla wydarzeń w adminie */
+@import 'generator-graphic.css';
+
+/* Tutaj możesz dodać bardzo ogólne style, które dotyczą całości admina
+   i nie pasują do żadnego z zaimportowanych plików. */
+
+/* Ogólne style dla kontenerów wtyczki w adminie, jeśli różnią się od _base.css */
+.admin-container {
+    max-width: 800px;
+    margin: 20px auto;
+    /* Centrowanie */
+    padding: 20px;
+    background-color: var(--bg-white);
+    border-radius: var(--border-radius-large);
+    box-shadow: var(--shadow-light);
+}
+
+/* Specyficzne style dla nagłówka w admin-edit-container */
+.admin-edit-container h1 {
+    font-size: 1.75rem;
+    margin-bottom: 24px;
+    color: var(--text-dark);
+    text-align: center;
+    font-weight: 600;
+    background-color: var(--primary);
+    color: var(--bg-white);
+    /* Tekst na białym tle, jeśli jest to headera */
+    padding: 12px 0;
+    border-radius: calc(var(--border-radius-large) - 2px);
+}
+
+a.btn {
+    color: white;
+    text-decoration: none;
+}

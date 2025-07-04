@@ -1,0 +1,113 @@
+{# Szablon do wyświetlania pojedynczego wydarzenia - Wersja 2.0 z integracją profili #}
+
+{% if event.verified == 1 %}
+<div class="event-wrapper">
+    <div class="event-header">
+        <h1 class="event-title">{{ event.title|e }}</h1>
+
+        {# NOWOŚĆ: Blok z komunikatami na podstawie roli autora #}
+        {% if author_role == 'subscriber' %}
+            <div class="message-box message-box--announcement message-box--centered">
+                <strong>INFORMACJA</strong><br>
+                To wydarzenie zostało dodane przez użytkownika, który nie jest organizatorem.
+            </div>
+        {% elseif author_role == 'administrator' %}
+            <div class="message-box message-box--announcement message-box--centered">
+                <strong>INFORMACJA</strong><br>
+                To wydarzenie zostało dodane przez administratora.
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="event-columns">
+        <div class="event-left">
+            {% if event.image_url %}
+                <img class="event-image" src="{{ event.image_url }}" alt="{{ event.image_alt_text|default(event.title) }}">
+            {% endif %}
+            
+            <div class="event-info">
+                <span class="event-category">{{ event.category }}</span>
+
+                {# Uproszczona logika dat #}
+                <div class="event-detail">
+                    <span class="material-symbols-outlined icon">calendar_today</span>
+                    <span>{{ event.start_datetime|date('d.m.Y') }}</span>
+                </div>
+                <div class="event-detail">
+                    <span class="material-symbols-outlined icon">access_time</span>
+                    {% if event.end_datetime is empty or event.end_datetime|date('U') <= event.start_datetime|date('U') %}
+                        <span>{{ event.start_datetime|date('H:i') }}</span>
+                    {% else %}
+                        <span>{{ event.start_datetime|date('H:i') }} - {{ event.end_datetime|date('H:i') }}</span>
+                    {% endif %}
+                </div>
+                
+                {# Pozostałe szczegóły bez zmian #}
+                <div class="event-detail"><span class="material-symbols-outlined icon">accessibility_new</span><span>{{ event.accessibility }}</span></div>
+                <div class="event-detail"><span class="material-symbols-outlined icon">local_offer</span><span>{{ event.delivery_mode }}</span></div>
+                
+                {% if event.location %}
+                    <div class="event-detail">
+                        <span class="material-symbols-outlined icon">location_on</span>
+                        <a href="https://maps.google.com/?q=?q={{ event.location|e('url') }}" target="_blank" class="event-location-link">
+                            {{ event.location }}<br><small>(Kliknij aby otworzyć mapy)</small>
+                        </a>
+                    </div>
+                {% endif %}
+
+                <div class="event-detail">
+                    <span class="material-symbols-outlined icon">attach_money</span>
+                    {% if event.price > 0 %}
+                        <span class="price">{{ event.price|number_format(2, ',', ' ') }} zł</span>
+                    {% else %}
+                        <span class="price-free">Bezpłatne</span>
+                    {% endif %}
+                </div>
+
+                {# NOWOŚĆ: Ulepszony blok "Organizator" #}
+                <div class="event-detail">
+                    <span class="material-symbols-outlined icon">business_center</span>
+                    <span>
+                        {% if organizer_is_linkable and organizer_id > 0 %}
+                            <a href="{{ home_url('/organizator/' ~ organizer_id) }}" class="organizer-link">{{ organizer_name }}</a>
+                        {% else %}
+                            {{ organizer_name }}
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="event-right">
+            {% if event.video_url %}
+                <div class="event-video">
+                    {# Uproszczona logika dla YouTube #}
+                    {% if 'youtube.com' in event.video_url or 'youtu.be' in event.video_url %}
+                        {% set video_id = event.video_url|split('v=')|last|split('/')|last|split('?')[0] %}
+                        <iframe width="100%" height="315" src="https://www.youtube.com/embed/{{ video_id }}" frameborder="0" allowfullscreen></iframe>
+                    {% elseif 'vimeo.com' in event.video_url %}
+                        {% set video_id = event.video_url|split('/')|last %}
+                        <iframe width="100%" height="315" src="https://player.vimeo.com/video/{{ video_id }}" frameborder="0" allowfullscreen></iframe>
+                    {% endif %}
+                </div>
+            {% endif %}
+
+            <div class="event-description">
+                {{ event.description|raw }}
+            </div>
+        </div>
+    </div>
+
+    {% if event.action_button_enabled and event.action_button_link %}
+        <div class="event-footer">
+            {# Używamy naszych standardowych klas przycisków #}
+            <a href="{{ event.action_button_link }}" class="btn btn--primary btn--large">
+                {{ event.action_button_text|default('Więcej informacji') }}
+            </a>
+        </div>
+    {% endif %}
+</div>
+
+{% else %}
+    <div class="message-box message-box--error">To wydarzenie nie zostało jeszcze zweryfikowane przez administratora.</div>
+{% endif %}

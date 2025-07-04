@@ -1,0 +1,222 @@
+/* ========================================================================
+   STYLE DLA MATERIAŁÓW WIDEO (Strona pojedyncza i karty)
+   ======================================================================== */
+
+/* --- 1. Strona pojedynczego materiału --- */
+
+.single-material-wrapper {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 1rem;
+}
+
+.material-video-player {
+    position: relative;
+    padding-bottom: 56.25%;
+    /* Proporcje 16:9 */
+    height: 0;
+    overflow: hidden;
+    margin-bottom: 2.5rem;
+    background-color: #000;
+    border-radius: var(--border-radius-large);
+    box-shadow: var(--shadow-medium);
+}
+
+.material-video-player iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.material-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2.5rem;
+    align-items: start;
+}
+
+.material-main .material-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.material-main .material-meta {
+    font-size: 0.9rem;
+    color: var(--text-medium);
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.material-main .material-description {
+    line-height: 1.7;
+    font-size: 1.1rem;
+    color: var(--text-dark);
+}
+
+/* Widżet ze szczegółami w sidebarze */
+.details-widget {
+    background-color: var(--bg-white);
+    padding: 1.5rem;
+    border-radius: var(--border-radius-large);
+    box-shadow: var(--shadow-light);
+    margin-bottom: 1.5rem;
+}
+
+.details-widget__title {
+    font-size: 1.2rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.details-widget__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.details-widget__list li {
+    display: flex;
+    align-items: start;
+    gap: 10px;
+    font-size: 0.95rem;
+}
+
+.details-widget__list .material-symbols-outlined {
+    color: var(--primary);
+    margin-top: 2px;
+}
+
+
+/* --- 2. Reużywalny komponent: Karta Wideo --- */
+
+.video-card {
+    background: var(--bg-white);
+    border-radius: var(--border-radius-large);
+    box-shadow: var(--shadow-light);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: all 0.2s ease-in-out;
+}
+
+.video-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium);
+}
+
+.video-card__thumbnail-wrapper {
+    position: relative;
+    background-color: #f0f0f0;
+}
+
+.video-card__thumbnail {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+}
+
+.video-card__duration-overlay {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    background-color: rgba(0, 0, 0, 0.75);
+    color: white;
+    padding: 2px 8px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    border-radius: var(--border-radius-small);
+}
+
+.video-card__content {
+    padding: 1.25rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.video-card__category-full-width {
+    background-color: #e2e8f0;
+    display: block;
+    text-align: center;
+    width: 100%;
+    font-weight: 600;
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+    margin-bottom: 1.5rem;
+    color: #475569;
+    font-size: 0.875rem;
+}
+
+.video-card__title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+    line-height: 1.3;
+}
+
+.video-card__title a {
+    color: var(--text-dark);
+    text-decoration: none !important;
+}
+
+.video-card__series {
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--text-medium);
+    margin: 0 0 0.75rem 0;
+}
+
+.video-card__author-large {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+}
+
+.card_accessibility {
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.card_accessibility-pill {
+    font-size: 0.75rem;
+    background-color: var(--bg-soft-gray);
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--border-radius-small);
+    border: 1px solid #e2e8f0;
+}
+
+.video-card__footer {
+    background-color: var(--bg-light-gray);
+    padding: 1rem 1.25rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+
+/* --- 3. Responsywność --- */
+@media (max-width: 992px) {
+    .material-content {
+        grid-template-columns: 1fr;
+    }
+
+    .material-sidebar {
+        order: -1;
+        /* Przesuń sidebar na górę na tabletach */
+        margin-bottom: 2rem;
+    }
+}

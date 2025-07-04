@@ -1,0 +1,157 @@
+/* --------------------------------------------------
+   GLOBAL BASE STYLES
+   Reset, podstawowa typografia, kolory, ustawienia HTML/body.
+   Zawiera zmienne CSS używane globalnie i w adminie.
+----------------------------------------------------- */
+
+/* Import czcionki Dosis (ładowana raz, dostępna globalnie) */
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@300;400;500;600;700&display=swap');
+
+/* Zmienne CSS */
+:root {
+    /* Kolory główne */
+    --primary: #00A096;
+    /* Główny kolor akcentu (zielony) */
+    --primary-hover: #008c83;
+    /* Ciemniejszy zielony */
+    --secondary: #3e3d40;
+    /* Drugorzędny kolor*/
+    --secondary-hover: #e0e0e0;
+    /* Jasnoszary  */
+    --accent: #F8B334;
+    /* Kolor akcentu (pomarańczowy/złoty) */
+    --accent-hover: #e0a32d;
+    /* Ciemniejszy pomarańczowy */
+    --danger: #E20000;
+    /* Czerwony dla błędów/usuwania */
+    --danger-hover: #cf0000;
+    /* Ciemniejszy czerwony */
+    --text-dark: #333333;
+    /* Ciemny kolor tekstu */
+    --text-medium: #666666;
+    /* Średni kolor tekstu */
+    --text-light: #888888;
+    /* Jasny kolor tekstu */
+    --bg-light: #f9f9f9;
+    /* Jasne tło, np. dla admina, kart */
+    --bg-white: #ffffff;
+    /* Białe tło */
+    --border-color: #494949;
+    /* Kolor ramek */
+    --shadow-light: 0 2px 4px rgba(0, 0, 0, 0.05);
+    /* Lekki cień */
+    --shadow-medium: 0 4px 10px rgba(0, 0, 0, 0.1);
+    /* Średni cień */
+    --shadow-strong: 0 10px 10px rgba(0, 0, 0, 0.25);
+    /* Mocny cień */
+    --font-family-base: 'Dosis', sans-serif;
+
+    /* Ogólne UI */
+    --border-radius-small: 4px;
+    --border-radius-medium: 6px;
+    --border-radius-large: 8px;
+    --border-radius-pill: 30px;
+    /* Dla zaokrąglonych badge'y */
+    --transition-speed: 0.2s ease-in-out;
+}
+
+/* Reset CSS */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 100%;
+    /* Podstawa dla jednostek rem */
+    line-height: 1.5;
+}
+
+body {
+    font-family: var(--font-family-base);
+    background-color: var(--bg-white);
+    /* Domyślne tło, może być nadpisane */
+    color: var(--text-dark);
+    /* Domyślny kolor tekstu */
+}
+
+/* Globalne style dla BODY w panelu admina WP */
+body.wp-admin {
+    background-color: #f0f0f0;
+    /* Standardowe tło admina WP */
+}
+
+body.wp-admin .wrap {
+    padding: 20px;
+    background: var(--bg-white);
+    margin-bottom: 20px;
+    /* Dodatkowy odstęp na dole wrapa */
+    border-radius: var(--border-radius-large);
+    box-shadow: var(--shadow-light);
+}
+
+/* Dostępność: focus states */
+:focus {
+    outline: 3px solid var(--primary);
+    /* Zielony */
+    outline-offset: 2px;
+}
+
+/* Globalne style linków */
+a {
+    text-decoration: none !important;
+    color: var(--primary);
+    transition: color var(--transition-speed), text-decoration var(--transition-speed);
+}
+
+a:hover,
+a:focus {
+    color: var(--primary-hover);
+}
+
+/* Ogólne nagłówki H1, H2 w adminie (dla h1.wp-heading-inline) */
+h1,
+h2 {
+    color: var(--text-dark);
+    /* Domyślny kolor nagłówków */
+}
+
+h1.wp-heading-inline {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Ikony Material Symbols – ogólne style */
+.material-symbols-outlined {
+    /* Ogólna klasa dla wszystkich ikon */
+    font-size: 24px;
+    color: var(--primary);
+    /* Zielony akcent */
+    vertical-align: middle;
+    /* Dla lepszego wyrównania z tekstem */
+}
+
+/* Specyficzne modyfikatory ikon, jeśli są potrzebne */
+.material-symbols-outlined.material-symbols-outlined-grid {
+    margin-right: 0.3em;
+}
+
+/* Style cen - globalne, mogą być nadpisane dla specyficznych kontekstów */
+.price-free {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 4px 8px;
+    border-radius: var(--border-radius-pill);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.price {
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    padding: 4px 8px;
+    border-radius: var(--border-radius-pill);
+    font-size: 0.9rem;
+    font-weight: 500;
+}

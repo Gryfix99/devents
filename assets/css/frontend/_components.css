@@ -1,0 +1,102 @@
+/* --------------------------------------------------
+   FRONTEND COMPONENTS STYLES
+   Style dla ogólnych, reużywalnych komponentów UI na frontendzie.
+   (Kontenery ogólne, nagłówki sekcji, liczniki, itp. - NIE karty, przyciski czy formularze)
+----------------------------------------------------- */
+
+/* Kontenery ogólne */
+.container {
+    max-width: 75rem;
+    margin: 0 auto;
+}
+
+/* Ogólne nagłówki sekcji */
+.section-heading,
+.section-title {
+    /* Zunifikowane nazewnictwo dla nagłówków */
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin: 40px 0 20px;
+    color: var(--primary);
+    /* Granat */
+}
+
+/* Box Containers – Style wspólne z cieniem */
+.box-container,
+.box-container-normal {
+    filter: drop-shadow(0 10px 10px rgba(0, 0, 0, 0.25));
+    background-color: var(--bg-light);
+    border-radius: 25px;
+    font-family: var(--font-family-base);
+    font-weight: 300;
+}
+
+.box-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 35px 75px;
+}
+
+.box-container-normal {
+    padding: 15px;
+    width: 70%;
+    margin: auto;
+}
+
+/* Elementy opisu wydarzenia (z EasyMDE) - to ogólne style dla treści Rich Text */
+.event-detail-description p,
+.event-detail-description ul,
+.event-detail-description ol {
+    margin-bottom: 20px;
+}
+
+.event-detail-description ul,
+.event-detail-description ol {
+    margin-left: 30px;
+}
+
+.event-detail-description ul {
+    list-style-type: disc;
+}
+
+.event-detail-description ol {
+    list-style-type: decimal;
+}
+
+/* Grid Container (ogólny, jeśli jest używany poza kartami) */
+.grid-container {
+    display: grid;
+    font-family: var(--font-family-base);
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 10px;
+    width: 100%;
+}
+
+/* Style dla Material Symbols (ogólne w komponentach) */
+.material-symbols-outlined.material-symbols-outlined-grid {
+    vertical-align: middle;
+    margin-right: 0.3em;
+}
+
+/* Klasa dla licznika znaków (używana w formularzach, ale ogólny wygląd) */
+.char-count {
+    font-size: 0.9rem;
+    color: var(--text-medium);
+    margin-left: 5px;
+    /* Domyślny margines */
+}
+
+.char-count.over {
+    color: var(--danger);
+    font-weight: bold;
+}
+
+/* Footer Note (jeśli jest to ogólny komponent stopki informacji) */
+.footer-note {
+    font-size: 0.8em;
+    color: var(--text-medium);
+    margin-top: 20px;
+}

@@ -1,0 +1,93 @@
+{# Szablon dla listy "Moje Wydarzenia" - Wersja 2.0 z filtrami i sortowaniem #}
+
+<div class="my-content-list">
+    <div class="my-content-list__header">
+        <h2 class="my-content-list__title">Zarządzaj swoimi wydarzeniami</h2>
+        <a href="{{ panel_url }}?view=dodaj-wydarzenie" class="btn btn--primary btn--icon">
+            <span class="material-symbols-outlined">add_circle</span> Opublikuj nowe wydarzenie
+        </a>
+    </div>
+
+    {# --- Pasek narzędzi: Wyszukiwarka i Filtry --- #}
+    <div class="list-toolbar">
+        <form action="{{ panel_url }}" method="GET" class="search-form">
+            <input type="hidden" name="view" value="moje-wydarzenia">
+            <input type="search" name="search" placeholder="Szukaj po tytule..." value="{{ current_filters.search }}" class="form-control form-input">
+            <button type="submit" class="btn btn--secondary">Szukaj</button>
+        </form>
+        <div class="filter-pills">
+            <a href="{{ panel_url }}?view=moje-wydarzenia&status=all" class="filter-pill {{ current_filters.status == 'all' ? 'active' : '' }}">Wszystkie</a>
+            <a href="{{ panel_url }}?view=moje-wydarzenia&status=published" class="filter-pill {{ current_filters.status == 'published' ? 'active' : '' }}">Zweryfikowane</a>
+            <a href="{{ panel_url }}?view=moje-wydarzenia&status=pending" class="filter-pill {{ current_filters.status == 'pending' ? 'active' : '' }}">Oczekujące</a>
+            <a href="{{ panel_url }}?view=moje-wydarzenia&status=draft" class="filter-pill {{ current_filters.status == 'draft' ? 'active' : '' }}">Wersje robocze</a>
+        </div>
+    </div>
+
+    {# Sortowanie widoczne tylko na urządzeniach mobilnych #}
+    <div class="mobile-sort-bar form-group">
+        <label for="mobile-sort">Sortuj według:</label>
+        <select id="mobile-sort" class="form-select" onchange="window.location.href=this.value;">
+            {% set sort_options = {
+                'created_at-DESC': 'Najnowsze',
+                'id-ASC': 'ID (rosnąco)',
+                'id-DESC': 'ID (malejąco)',
+                'title-ASC': 'Tytuł (A-Z)',
+                'title-DESC': 'Tytuł (Z-A)',
+                'start_datetime-ASC': 'Data (najwcześniejsze)',
+                'start_datetime-DESC': 'Data (najpóźniejsze)'
+            } %}
+            {% for value, label in sort_options %}
+                {% set orderby = value|split('-')|first %}
+                {% set order = value|split('-')|last %}
+                <option value="{{ panel_url }}?view=moje-wydarzenia&orderby={{ orderby }}&order={{ order }}" {{ current_filters.orderby == orderby and current_filters.order == order ? 'selected' : '' }}>
+                    {{ label }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    {% if events is not empty %}
+        <div class="table-responsive-wrapper">
+            <table class="my-content-list__table sortable">
+                <thead>
+                    <tr>
+                        {% set sort_order = (current_filters.orderby == 'id' and current_filters.order == 'ASC') ? 'DESC' : 'ASC' %}
+                        <th><a href="{{ panel_url }}?view=moje-wydarzenia&orderby=id&order={{ sort_order }}">ID {% if current_filters.orderby == 'id' %}<span class="material-symbols-outlined sort-icon">{{ current_filters.order == 'ASC' ? 'arrow_upward' : 'arrow_downward' }}</span>{% endif %}</a></th>
+                        
+                        {% set sort_order = (current_filters.orderby == 'title' and current_filters.order == 'ASC') ? 'DESC' : 'ASC' %}
+                        <th><a href="{{ panel_url }}?view=moje-wydarzenia&orderby=title&order={{ sort_order }}">Tytuł wydarzenia {% if current_filters.orderby == 'title' %}<span class="material-symbols-outlined sort-icon">{{ current_filters.order == 'ASC' ? 'arrow_upward' : 'arrow_downward' }}</span>{% endif %}</a></th>
+                        
+                        {% set sort_order = (current_filters.orderby == 'start_datetime' and current_filters.order == 'ASC') ? 'DESC' : 'ASC' %}
+                        <th><a href="{{ panel_url }}?view=moje-wydarzenia&orderby=start_datetime&order={{ sort_order }}">Data rozpoczęcia {% if current_filters.orderby == 'start_datetime' %}<span class="material-symbols-outlined sort-icon">{{ current_filters.order == 'ASC' ? 'arrow_upward' : 'arrow_downward' }}</span>{% endif %}</a></th>
+
+                        {% set sort_order = (current_filters.orderby == 'verified' and current_filters.order == 'ASC') ? 'DESC' : 'ASC' %}
+                        <th><a href="{{ panel_url }}?view=moje-wydarzenia&orderby=verified&order={{ sort_order }}">Status {% if current_filters.orderby == 'verified' %}<span class="material-symbols-outlined sort-icon">{{ current_filters.order == 'ASC' ? 'arrow_upward' : 'arrow_downward' }}</span>{% endif %}</a></th>
+                        
+                        <th>Akcje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for event in events %}
+                        <tr>
+                            <td data-label="ID">{{ event.id }}</td>
+                            <td data-label="Tytuł">{{ event.title }}</td>
+                            <td data-label="Data">{{ event.start_datetime|date('d.m.Y, H:i') }}</td>
+                            <td data-label="Status">
+                                <span class="status-badge {{ event.status_info.class }}">{{ event.status_info.text }}</span>
+                            </td>
+                            <td data-label="Akcje" class="actions-cell">
+                                <a href="#" class="btn btn--secondary btn--small btn--icon js-duplicate-event-btn" title="Duplikuj" data-event-id="{{ event.id }}"><span class="material-symbols-outlined">content_copy</span></a>
+                                <a href="{{ panel_url }}?view=edytuj-wydarzenie&event_id={{ event.id }}" class="btn btn--secondary btn--small btn--icon" title="Edytuj"><span class="material-symbols-outlined">edit</span></a>
+                                <a href="#" class="btn btn--danger btn--small btn--icon js-delete-event-btn" title="Usuń" data-event-id="{{ event.id }}"> <span class="material-symbols-outlined">delete</span></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="message-box">
+            Nie znaleziono żadnych wydarzeń pasujących do Twoich kryteriów.
+        </div>
+    {% endif %}
+</div>

@@ -1,0 +1,127 @@
+/*
+ * Style dla formularzy autentykacji (logowanie, rejestracja, reset hasła)
+ */
+
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem 1.5rem;
+    background-color: var(--bg-light, #f9fafb);
+    min-height: 80vh;
+}
+
+.auth-card {
+    background-color: var(--bg-white, #ffffff);
+    padding: 2.5rem;
+    border-radius: var(--border-radius-large, 8px);
+    box-shadow: var(--shadow-medium, 0 10px 15px -3px rgba(0, 0, 0, 0.1));
+    border: 1px solid var(--border-color, #e5e7eb);
+    width: 100%;
+    max-width: 1000px;
+    /* 448px */
+}
+
+.auth-header {
+    margin-bottom: 1.5rem;
+}
+
+.auth-title {
+    text-align: center;
+    font-size: 1.875rem;
+    /* 30px */
+    font-weight: 700;
+    color: var(--text-dark, #111827);
+}
+
+.auth-section-title {
+    font-size: 1.25rem;
+    /* 20px */
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text-dark);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+.auth-hr {
+    border: 0;
+    height: 1px;
+    background-color: var(--border-color);
+    margin: 2rem 0;
+}
+
+.auth-message {
+    margin-bottom: 1.5rem;
+}
+
+.auth-radio-group {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.auth-radio-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.devents-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-row-spaced {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.auth-link-wrapper .form-link {
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.auth-separator {
+    margin-top: 1.5rem;
+    position: relative;
+    text-align: center;
+}
+
+.auth-separator::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    border-top: 1px solid var(--border-color, #d1d5db);
+}
+
+.auth-separator-text {
+    position: relative;
+    display: inline-block;
+    background-color: var(--bg-white, #ffffff);
+    padding: 0 1rem;
+    color: var(--text-medium, #6b7280);
+    font-size: 0.875rem;
+}
+
+.auth-secondary-action {
+    margin-top: 1.5rem;
+}
+
+.code-inputs {
+    display: flex !important;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.code-inputs .code-digit {
+    width: 2.5rem;
+    text-align: center;
+    font-size: 1.5rem;
+    height: 3rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}

@@ -1,0 +1,153 @@
+/*
+ * Style dla układu strony "Ustawienia Konta"
+ */
+
+.acc_change_container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.sidebar {
+    flex: 1 1 250px;
+    /* Flex-grow, flex-shrink, flex-basis */
+    max-width: 300px;
+}
+
+.profile-card {
+    background: var(--bg-white);
+    padding: 20px;
+    border-radius: var(--border-radius-large);
+    box-shadow: var(--shadow-medium);
+    text-align: center;
+}
+
+.profile-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: var(--text-dark);
+    word-break: break-word;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 15px;
+    border-radius: var(--border-radius-medium);
+    text-decoration: none;
+    color: var(--text-dark);
+    font-weight: 500;
+    transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+.nav-link:hover {
+    background-color: var(--bg-light);
+    color: var(--primary);
+}
+
+.material-symbols-outlined {
+    color: var(--bg-primary);
+}
+
+.nav-link.active {
+    background-color: var(--primary);
+    color: var(--bg-white);
+    box-shadow: var(--shadow-light);
+}
+
+.nav-link.delete {
+    color: var(--danger);
+}
+
+.nav-link.delete:hover {
+    background-color: var(--danger);
+    color: var(--bg-white);
+}
+
+.nav-link.delete.active {
+    background-color: var(--danger);
+    color: var(--bg-white);
+}
+
+.main-content {
+    flex: 3 1 600px;
+    /* Rośnie 3x szybciej niż sidebar */
+}
+
+.content-box {
+    background: var(--bg-white);
+    padding: 30px;
+    border-radius: var(--border-radius-large);
+    box-shadow: var(--shadow-medium);
+}
+
+.content-box h2 {
+    font-size: 1.8rem;
+    margin-top: 0;
+    margin-bottom: 25px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+/* Responsywność */
+@media (max-width: 768px) {
+    .acc_change_container {
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    .sidebar {
+        max-width: 100%;
+    }
+}
+
+/* Style dla zakładek w Ustawieniach Konta */
+.settings-tabs {
+    display: flex;
+    border-bottom: 2px solid #e2e8f0;
+    margin-bottom: 2rem;
+}
+
+.nav-tab {
+    padding: 0.8rem 1.5rem;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-medium);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    /* Nakłada się na główną ramkę */
+    text-decoration: none !important;
+}
+
+.nav-tab.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+}
+
+.tab-content {
+    display: none;
+    /* Wszystkie zakładki domyślnie ukryte */
+}
+
+.tab-content.active {
+    display: block;
+    /* Pokazujemy tylko aktywną */
+}
+
+.current-logo-preview {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}

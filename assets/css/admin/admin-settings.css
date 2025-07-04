@@ -1,0 +1,93 @@
+/* --------------------------------------------------
+   ADMIN SETTINGS STYLES
+   Style dla ogólnych ustawień wtyczki w panelu administratora.
+   (Jeśli istnieją i są inne niż ustawienia konta użytkownika).
+----------------------------------------------------- */
+/* Style dla nowego, kolumnowego układu strony ustawień */
+.settings-add-form-wrapper .form-wrap {
+    padding: 0 10px;
+}
+
+.settings-add-form-wrapper .form-field-container {
+    display: flex;
+    gap: 20px;
+    align-items: flex-end;
+}
+
+.settings-add-form-wrapper .form-field-container .form-field {
+    flex: 1;
+}
+
+.settings-add-form-wrapper .form-field-container .submit {
+    margin: 0 0 1em 0;
+}
+
+.settings-columns-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* Dwie równe kolumny */
+    gap: 20px;
+}
+
+.setting-list-card {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    margin-bottom: 20px;
+}
+
+.setting-list-card h3 {
+    font-size: 1em;
+    padding: 8px 12px;
+    margin: 0;
+    background: #f0f0f1;
+    border-bottom: 1px solid #c3c4c7;
+}
+
+.settings-list {
+    margin: 0;
+    padding: 0;
+}
+
+.settings-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    border-bottom: 1px solid #eee;
+    margin: 0;
+}
+
+.settings-list li:last-child {
+    border-bottom: none;
+}
+
+.settings-list li .delete-link {
+    color: #a00;
+    text-decoration: none;
+}
+
+.nav-tab-wrapper {
+    margin-bottom: 20px;
+}
+
+.settings-content-wrapper {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 20px;
+}
+
+@media (max-width: 782px) {
+    .settings-columns-container {
+        grid-template-columns: 1fr;
+        /* Jedna kolumna na mobilnych */
+    }
+
+    .settings-add-form-wrapper .form-field-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .settings-content-wrapper {
+        grid-template-columns: 1fr;
+    }
+}

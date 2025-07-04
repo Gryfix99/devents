@@ -1,0 +1,130 @@
+/* --------------------------------------------------
+   FRONTEND BUTTONS STYLES
+   Style dla WSZYSTKICH przycisków na frontendzie.
+   Uproszczone z użyciem klasy bazowej 'btn' i modyfikatorów.
+   Dostosowano kolory dla zgodności z WCAG i nowymi zmiennymi.
+----------------------------------------------------- */
+
+/* Klasa bazowa dla przycisków frontendu */
+.btn {
+    display: inline-block;
+    text-align: center;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: var(--border-radius-small);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color var(--transition-speed), transform 0.1s ease;
+    font-family: var(--font-family-base);
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.btn:focus {
+    outline: 3px solid var(--primary);
+    outline-offset: 2px;
+}
+
+/* Typy przycisków */
+.btn--primary {
+    /* Główny zielony przycisk, będzie używany dla "Zobacz szczegóły" */
+    background-color: var(--primary);
+    color: var(--bg-white);
+    /* Biały tekst na zielonym tle (WCAG) */
+}
+
+.btn--primary:hover {
+    background-color: var(--secondary);
+    /* Ciemny szary na hover */
+    color: var(--bg-white);
+    /* Biały tekst na ciemnym szarym tle (WCAG) */
+}
+
+.btn--secondary {
+    /* Drugorzędny szary przycisk */
+    background-color: var(--secondary);
+    color: var(--bg-white);
+    /* Biały tekst na ciemnoszarym tle (WCAG) */
+}
+
+.btn--secondary:hover {
+    background-color: var(--secondary-hover);
+    /* Jasnoszary na hover */
+    color: var(--text-dark);
+    /* Ciemny tekst na jasnym tle (WCAG) */
+}
+
+.btn--accent {
+    /* Pomarańczowy/złoty przycisk (zgodnie z Twoim accent) */
+    background-color: var(--accent);
+    color: var(--text-dark);
+    /* Ciemny tekst na pomarańczowym tle dla lepszego kontrastu */
+}
+
+.btn--accent:hover {
+    background-color: var(--accent-hover);
+    color: var(--text-dark);
+}
+
+.btn--danger {
+    /* Czerwony przycisk dla akcji usuwania */
+    background-color: var(--danger);
+    color: var(--bg-white);
+}
+
+.btn--danger:hover {
+    background-color: var(--danger-hover);
+}
+
+/* Rozmiary przycisków */
+.btn--small {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+}
+
+.btn--medium {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+}
+
+.btn--large {
+    padding: 1rem 2rem;
+    font-size: 1.125rem;
+}
+
+/* Przycisk na całą szerokość */
+.btn--full-width {
+    width: 100%;
+    display: block;
+}
+
+/* Przyciski z ikonami */
+.btn--icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+/* Przyciski linkowe */
+.btn--link {
+    background: none;
+    color: var(--primary);
+    font-size: 0.95rem;
+    padding: 0.4rem 0;
+    border-bottom: 1px dotted var(--primary);
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn--link:hover {
+    background: none;
+    text-decoration: none;
+    border-bottom: 1px solid var(--primary);
+}
+
+/* Animacje */
+.btn:active {
+    transform: scale(0.98);
+}

@@ -1,0 +1,130 @@
+/* --------------------------------------------------
+   RANKING STYLES
+   Style dla komponentu rankingu i liczników.
+----------------------------------------------------- */
+
+.ranking-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background: var(--bg-white);
+    border-radius: var(--border-radius-large);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
+}
+
+.ranking-title {
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    color: var(--text-dark);
+}
+
+.ranking-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.ranking-item {
+    flex: 1 1 150px;
+    min-width: 140px;
+    padding: 1.2rem;
+    background: var(--bg-light);
+    border-radius: var(--border-radius-large);
+    text-align: center;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+    position: relative;
+}
+
+.ranking-item:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+.ranking-number {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    color: var(--text-dark);
+}
+
+.ranking-label {
+    font-size: 1rem;
+    color: var(--text-medium);
+}
+
+/* Subtelna hierarchia: rozmiar + kolor + animacja */
+.first {
+    flex: 1 1 100%;
+    background: linear-gradient(135deg, #fceabb, #f8b500);
+    /* Złoty */
+    color: #000;
+    order: 0;
+}
+
+.second {
+    background: linear-gradient(135deg, #e0e0e0, #c0c0c0);
+    /* Srebrny */
+    color: #000;
+    order: 1;
+}
+
+.third {
+    background: linear-gradient(135deg, #e4bfa1, #cd7f32);
+    /* Brązowy */
+    color: #000;
+    order: 2;
+}
+
+/* Responsywność: pionowy układ na mobile */
+@media (max-width: 600px) {
+    .ranking-grid {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .ranking-item {
+        flex: 1 1 100%;
+    }
+
+    /* Resetujemy order, aby domyślna kolejność HTML była zachowana na mobile */
+    .first,
+    .second,
+    .third {
+        order: unset;
+    }
+}
+
+/* Liczniki (z dawnego .sl-counter-grid) */
+.sl-counter-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.sl-counter-icon {
+    font-size: 3rem;
+    color: var(--primary);
+    display: block;
+    margin: 0 auto 0.5rem;
+}
+
+.sl-counter-number {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.sl-counter-label {
+    font-size: 1rem;
+    color: var(--text-medium);
+}
+
+.sl-counter-updated {
+    font-size: 0.9rem;
+    color: var(--text-medium);
+    text-align: right;
+}

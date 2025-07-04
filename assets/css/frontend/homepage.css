@@ -1,0 +1,209 @@
+/* --------------------------------------------------
+   HOMEPAGE STYLES
+   Style specyficzne dla strony głównej.
+   - Sekcja HERO: Przywrócono układ obraz L (30%), treść P (70%) na bazie dawnych stylów slidera.
+   - Tło sekcji HERO jest jasnoszare.
+   - Przywrócono style dla hero-item-description.
+----------------------------------------------------- */
+
+.hero-section {
+    position: relative;
+    width: 100%;
+    padding: 40px var(--spacing-large);
+    overflow: hidden;
+    background-color: var(--bg-light);
+}
+
+.hero-section>.section-title {
+    text-align: center;
+    margin-bottom: 30px;
+    color: var(--text-dark);
+}
+
+/* --- HERO ITEM (nowa nazwa dla dawnego .slide) --- */
+.hero-item {
+    /* Odpowiednik dawnego .slide - główny kontener dla pojedyńczego wydarzenia w hero */
+    flex-shrink: 0;
+    width: 100%;
+    /* Ma zajmować całą dostępną szerokość w hero-section */
+    display: flex;
+    /* Będzie układał obraz i info obok siebie */
+    flex-direction: column;
+    /* Domyślny układ kolumnowy na mobile */
+    height: 100%;
+    /* Może być auto, jeśli nie ma stałej wysokości */
+    overflow: hidden;
+
+    /* Style wizualne dla samego hero-item, podobne do .slide-content */
+    border-radius: var(--border-radius-medium);
+    /* 6px */
+    border: 1px solid #eee;
+    background-color: var(--bg-white);
+    /* Białe tło wewnątrz karty hero */
+    box-shadow: var(--shadow-medium);
+    /* Subtelny cień */
+}
+
+.hero-item-content {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    border-radius: 6px;
+    border: 1px solid #eee;
+}
+
+/* Informacje w hero item (prawa kolumna na desktopie) */
+.hero-item-info {
+    padding: 20px;
+    color: var(--text-dark);
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 10px;
+}
+
+/* Tytuł, kategoria i opis w hero item */
+.hero-item-title {
+    /* Odpowiednik dawnego .slide-title */
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--text-dark);
+}
+
+.hero-item-category {
+    /* Odpowiednik dawnego .slide-category */
+    display: inline-block;
+    background: #e5e7eb;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 12px;
+    border-radius: var(--border-radius-medium);
+    margin-bottom: 10px;
+    color: var(--text-dark);
+}
+
+.hero-item-description {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-top: auto;
+    margin-bottom: 5px;
+    color: var(--text-dark);
+}
+
+.hero-item-details {
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.hero-item-details .material-symbols-outlined {
+    color: var(--primary);
+}
+
+/* .detail-item style jest w _base.css lub events.css, tu tylko dla kontekstu */
+
+.hero-item-footer {
+    /* Odpowiednik dawnego .slide-footer */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+
+/* --- Responsywność dla HERO ITEM --- */
+@media (min-width: 768px) {
+    .hero-item {
+        /* Na desktop, hero-item układa obraz i info obok siebie */
+        flex-direction: row;
+        /* Zmienia kierunek na wierszowy */
+    }
+
+    .hero-item-image {
+        width: 40%;
+        display: flex;
+    }
+
+    .hero-item-image img {
+    height: 100%;
+    object-fit: cover;
+    overflow-x: hidden;
+    }
+
+    .hero-item-info {
+    width: 60%;
+    }
+}
+
+/* --- Sekcje Event Grid (Current, Upcoming, CTA) --- */
+.current-events-section,
+.upcoming-events-section,
+.cta-section {
+    padding: 50px var(--spacing-large);
+    background-color: var(--bg-light);
+    /* Jasnoszare tło dla tych sekcji */
+}
+
+.current-events-section .section-title,
+.upcoming-events-section .section-title,
+.cta-section .section-title {
+    text-align: center;
+    margin-bottom: 40px;
+    color: var(--text-dark);
+}
+
+.cta-icon--social {
+    display: flex;
+    justify-content: center;
+    /* Wyśrodkowanie ikon w poziomie */
+    align-items: center;
+    /* Wyśrodkowanie ikon w pionie */
+    gap: 1rem;
+    /* Odstęp między ikonami */
+    margin-bottom: 0.75rem;
+}
+
+.cta-icon--social a svg {
+    /* Style dla samych ikon SVG */
+    width: 64px;
+    height: 64px;
+    color: var(--primary);
+    transition: color 0.2s;
+}
+
+.cta-icon--social a:hover svg {
+    /* Efekt hover */
+    color: var(--secondary);
+}
+/* --- Komunikaty --- */
+.no-events-message {
+    text-align: center;
+    padding: 50px var(--spacing-large);
+    font-size: 1.2rem;
+    color: var(--text-medium);
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 20px var(--spacing-small);
+    }
+
+    .current-events-section,
+    .upcoming-events-section,
+    .cta-section {
+        padding: 30px var(--spacing-small);
+    }
+
+    .event-grid {
+        grid-template-columns: 1fr;
+    }
+    .hero-item-content {
+        flex-direction: column;
+    }
+}

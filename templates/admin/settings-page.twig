@@ -1,0 +1,74 @@
+{# templates/admin/settings-page.twig - Wersja 4.0 z zakładkami #}
+<div class="wrap devents-settings-page">
+    <h1 class="wp-heading-inline">Ustawienia Formularzy</h1>
+    <hr class="wp-header-end">
+
+    {% if success_message %}
+        <div id="message" class="updated notice notice-success is-dismissible"><p>{{ success_message }}</p></div>
+    {% endif %}
+
+    {# Nawigacja z zakładkami #}
+    <nav class="nav-tab-wrapper wp-clearfix" aria-label="Nawigacja dodatkowa">
+        <a href="{{ page_url }}&tab=events" class="nav-tab {{ active_tab == 'events' ? 'nav-tab-active' : '' }}">Ustawienia Wydarzeń</a>
+        <a href="{{ page_url }}&tab=videos" class="nav-tab {{ active_tab == 'videos' ? 'nav-tab-active' : '' }}">Ustawienia Materiałów</a>
+    </nav>
+
+    <div class="settings-content-wrapper">
+        {# Formularz dodawania nowej wartości #}
+        <div class="settings-add-form">
+            <h2>Dodaj nową wartość</h2>
+            <form method="post" action="{{ page_url }}" class="validate">
+                {{ wp_nonce_field('devents_add_setting_nonce', '_wpnonce', true, false)|raw }}
+                <input type="hidden" name="devents_add_setting" value="1">
+                
+                <div class="form-field">
+                    <label for="setting_value">Nazwa</label>
+                    <input type="text" name="setting_value" id="setting_value" required>
+                </div>
+                <div class="form-field">
+                    <label for="setting_type">Typ ustawienia</label>
+                    <select name="setting_type" id="setting_type">
+                        {% if active_tab == 'events' %}
+                            <option value="event_category">Kategoria wydarzenia</option>
+                            <option value="event_accessibility">Dostępność wydarzenia</option>
+                            <option value="event_method">Sposób realizacji</option>
+                        {% else %}
+                            <option value="video_category">Kategoria filmu</option>
+                            <option value="video_accessibility">Dostępność filmu</option>
+                        {% endif %}
+                    </select>
+                </div>
+                <p class="submit">
+                    <button type="submit" class="button button-primary">Dodaj</button>
+                </p>
+            </form>
+        </div>
+
+        {# Lista istniejących wartości dla aktywnej zakładki #}
+        <div class="settings-lists">
+            {% if active_tab == 'events' %}
+                {% set settings_to_show = event_settings %}
+                {% set labels = {'event_category': 'Kategorie', 'event_accessibility': 'Dostępność', 'event_method': 'Sposoby Realizacji'} %}
+            {% else %}
+                {% set settings_to_show = video_settings %}
+                {% set labels = {'video_category': 'Kategorie', 'video_accessibility': 'Dostępność'} %}
+            {% endif %}
+
+            {% for type, items in settings_to_show %}
+                <div class="setting-list-card">
+                    <h3>{{ labels[type] }}</h3>
+                    <ul class="settings-list">
+                        {% for item in items %}
+                            <li>
+                                <span>{{ item.setting_value }}</span>
+                                <a href="{{ wp_nonce_url(page_url ~ '&tab='~active_tab~'&action=delete&setting_id=' ~ item.id, 'devents_delete_setting_' ~ item.id) }}" class="delete-link">Usuń</a>
+                            </li>
+                        {% else %}
+                            <li class="no-items">Brak zdefiniowanych.</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

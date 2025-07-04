@@ -1,0 +1,106 @@
+{# templates/single/video.twig - Wersja ostateczna #}
+
+<article class="single-material-wrapper">
+    
+    <div class="material-video-player">
+        {# --- NOWA, INTELIGENTNA LOGIKA DLA WIDEO --- #}
+        {% set embed_url = '' %}
+        {% if video.video_url %}
+            {% if 'youtube.com/' in video.video_url or 'youtu.be/' in video.video_url %}
+                {% set video_id = video.video_url|split('v=')|last|split('/')|last|split('?')[0] %}
+                {% set embed_url = "https://www.youtube.com/embed/" ~ video_id %}
+            {% elseif 'vimeo.com/' in video.video_url %}
+                {% set video_id = video.video_url|split('/')|last %}
+                {% set embed_url = "https://player.vimeo.com/video/" ~ video_id %}
+            {% endif %}
+        {% endif %}
+
+        {% if embed_url %}
+            <iframe src="{{ embed_url }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        {% elseif video.video_url %}
+            {# ZMIANA: Przycisk jako fallback, jeśli wideo nie jest z YT/Vimeo #}
+            <div class="video-fallback">
+                <p>Nie można osadzić tego materiału.</p>
+                <a href="{{ video.video_url }}" target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--large">
+                    <span class="material-symbols-outlined">play_circle</span>
+                    Obejrzyj na zewnętrznej stronie
+                </a>
+            </div>
+        {% else %}
+            <p class="message-box">Brak linku do wideo.</p>
+        {% endif %}
+    </div>
+
+    <div class="material-content">
+        {# Główna treść w lewej kolumnie #}
+        <main class="material-main">
+            <h1 class="material-title">{{ video.title }}</h1>
+            <div class="material-description">
+                {{ video.description|raw }}
+            </div>
+        </main>
+
+        {# Pasek boczny ze szczegółami w prawej kolumnie #}
+        <aside class="material-sidebar">
+            <div class="details-widget">
+                <h3 class="details-widget__title">Szczegóły</h3>
+                <ul class="details-widget__list">
+                    {# --- NOWE WARUNKI `IF` DLA KAŻDEGO POLA --- #}
+                    {% if video.author %}
+                    <li>
+                        <span class="material-symbols-outlined">person</span>
+                        <div><strong>Autor:</strong> {{ video.author }}</div>
+                    </li>
+                    {% endif %}
+
+                    {% if video.translator %}
+                    <li>
+                        <span class="material-symbols-outlined">record_voice_over</span>
+                        <div><strong>Tłumacz PJM:</strong> {{ video.translator }}</div>
+                    </li>
+                    {% endif %}
+                    
+                    {% if video.category %}
+                    <li>
+                        <span class="material-symbols-outlined">folder</span>
+                        <div><strong>Kategoria:</strong> {{ video.category }}</div>
+                    </li>
+                    {% endif %}
+                    
+                    {% if video.series_name %}
+                    <li>
+                        <span class="material-symbols-outlined">collections_bookmark</span>
+                        <div><strong>Seria:</strong> {{ video.series_name }}</div>
+                    </li>
+                    {% endif %}
+
+                    {% if video.duration %}
+                    <li>
+                        <span class="material-symbols-outlined">schedule</span>
+                        <div><strong>Czas trwania:</strong> {{ video.duration }}</div>
+                    </li>
+                    {% endif %}
+                    
+                    {# ZMIANA: Wyświetlamy datę tylko, jeśli istnieje i nie jest "pusta" #}
+                    {% if video.publish_date and video.publish_date|date('Y') > '1971' %}
+                    <li>
+                        <span class="material-symbols-outlined">today</span>
+                        <div><strong>Data publikacji:</strong> {{ video.publish_date|date('d.m.Y') }}</div>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+
+            {% if video.accessibility and video.accessibility|trim is not empty %}
+            <div class="details-widget">
+                <h3 class="details-widget__title">Dostępność</h3>
+                <ul class="details-widget__list">
+                    {% for item in video.accessibility|split(',') %}
+                        <li><span class="material-symbols-outlined">check</span> {{ item|trim }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </aside>
+    </div>
+</article>

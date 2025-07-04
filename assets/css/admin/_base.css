@@ -1,0 +1,89 @@
+/* --------------------------------------------------
+   ADMIN BASE STYLES
+   Globalne style dla panelu administratora wtyczki.
+   Zawiera ogólny reset, typografię, kolory i podstawowy układ.
+----------------------------------------------------- */
+
+/* Import czcionki (jeśli używasz jej również w adminie) */
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@400;500;600;700&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Dosis', sans-serif;
+    background-color: #f0f0f0;
+    /* Typowe tło admina */
+    color: #333333;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 100%;
+    line-height: 1.5;
+}
+
+/* Fokus dla dostępności */
+:focus {
+    outline: 3px solid #00509e;
+    /* Mocny niebieski dla fokusa */
+    outline-offset: 2px;
+}
+
+/* Globalne style linków w adminie */
+a {
+    text-decoration: none;
+    color: #00509e;
+    /* Granat */
+}
+
+a:hover,
+a:focus {
+    text-decoration: underline;
+}
+
+/* Podstawowy kontener admina wtyczki */
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 16px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Ogólne nagłówki sekcji w adminie */
+.section-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 20px 0;
+    color: #374151;
+    text-align: center;
+}
+
+/* Komunikaty w panelu admina */
+.updated,
+.error {
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+}
+
+.updated {
+    background-color: #dff0d8;
+    color: #3c763d;
+    border: 1px solid #d6e9c6;
+}
+
+.error {
+    background-color: #f2dede;
+    color: #a94442;
+    border: 1px solid #ebccd1;
+}
+
+/* Globalne style dla tabel admina (jeśli masz powtarzalne wzorce) */
+/* .admin-table { ... } */
+/* .admin-table th { ... } */
+/* .admin-table td { ... } */

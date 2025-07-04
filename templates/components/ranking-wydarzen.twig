@@ -1,0 +1,23 @@
+<div class="ranking-container">
+  <h2 class="ranking-title">Ranking publikacji</h2>
+  <div class="ranking-grid">
+    {% if ranking|length >= 2 %}
+      <div class="ranking-item second">
+        <div class="ranking-number">{{ ranking[1].total_events }}</div>
+        <div class="ranking-label">{{ ranking[1].org_name }}</div>
+      </div>
+    {% endif %}
+    {% if ranking|length >= 1 %}
+      <div class="ranking-item first">
+        <div class="ranking-number">{{ ranking[0].total_events }}</div>
+        <div class="ranking-label">{{ ranking[0].org_name }}</div>
+      </div>
+    {% endif %}
+    {% if ranking|length >= 3 %}
+      <div class="ranking-item third">
+        <div class="ranking-number">{{ ranking[2].total_events }}</div>
+        <div class="ranking-label">{{ ranking[2].org_name }}</div>
+      </div>
+    {% endif %}
+  </div>
+</div>

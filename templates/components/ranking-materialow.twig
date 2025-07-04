@@ -1,0 +1,23 @@
+<div class="ranking-container">
+    <h2 class="ranking-title">Najaktywniejsze organizacje - Materiały</h2>
+    <div class="ranking-grid">
+        {% if ranking|length >= 1 %}
+            <div class="ranking-item">
+                <div class="ranking-number first">{{ ranking[0].total_materials }}</div>
+                <div class="ranking-label">{{ ranking[0].org_name }}</div>
+            </div>
+        {% endif %}
+        {% if ranking|length >= 2 %}
+            <div class="ranking-item">
+                <div class="ranking-number second">{{ ranking[1].total_materials }}</div>
+                <div class="ranking-label">{{ ranking[1].org_name }}</div>
+            </div>
+        {% endif %}
+        {% if ranking|length >= 3 %}
+            <div class="ranking-item">
+                <div class="ranking-number third">{{ ranking[2].total_materials }}</div>
+                <div class="ranking-label">{{ ranking[2].org_name }}</div>
+            </div>
+        {% endif %}
+    </div>
+</div>

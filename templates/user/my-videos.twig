@@ -1,0 +1,90 @@
+{# Ostateczny szablon listy "Moje Filmy" - Wersja 4.0 z pełną funkcjonalnością i poprawkami #}
+<div class="my-content-list">
+    <div class="my-content-list__header">
+        <h2 class="my-content-list__title">Zarządzaj swoimi filmami</h2>
+        <a href="{{ panel_url }}?view=dodaj-film" class="btn btn--primary btn--icon">
+            <span class="material-symbols-outlined">add_circle</span> Opublikuj nowy film
+        </a>
+    </div>
+
+    {# --- Pasek narzędzi: Wyszukiwarka i Filtry --- #}
+    <div class="list-toolbar">
+        <form action="{{ panel_url }}" method="GET" class="search-form">
+            <input type="hidden" name="view" value="moje-filmy">
+            <input type="search" name="search" placeholder="Szukaj po tytule..." value="{{ current_filters.search }}" class="form-control search-input">
+            <button type="submit" class="btn btn--secondary">Szukaj</button>
+        </form>
+        <div class="filter-pills">
+            <a href="{{ panel_url }}?view=moje-filmy&status=all" class="filter-pill {{ current_filters.status == 'all' ? 'active' : '' }}">Wszystkie</a>
+            <a href="{{ panel_url }}?view=moje-filmy&status=published" class="filter-pill {{ current_filters.status == 'published' ? 'active' : '' }}">Zweryfikowane</a>
+            <a href="{{ panel_url }}?view=moje-filmy&status=pending" class="filter-pill {{ current_filters.status == 'pending' ? 'active' : '' }}">Oczekujące</a>
+            <a href="{{ panel_url }}?view=moje-filmy&status=draft" class="filter-pill {{ current_filters.status == 'draft' ? 'active' : '' }}">Wersje robocze</a>
+        </div>
+    </div>
+    
+    {# --- Sortowanie dla urządzeń mobilnych --- #}
+    <div class="mobile-sort-bar form-group">
+        <label for="mobile-sort" class="form-label">Sortuj według:</label>
+        <select id="mobile-sort" class="form-select" onchange="window.location.href=this.value;">
+            {% set sort_options = {
+                'id-DESC': 'Najnowsze', 'title-ASC': 'Tytuł (A-Z)', 'title-DESC': 'Tytuł (Z-A)',
+                'publish_date-DESC': 'Data (najnowsze)', 'publish_date-ASC': 'Data (najstarsze)'
+            } %}
+            {% for value, label in sort_options %}
+                {% set orderby = value|split('-')|first %}
+                {% set order = value|split('-')|last %}
+                <option value="{{ panel_url }}?view=moje-filmy&orderby={{ orderby }}&order={{ order }}" {{ current_filters.orderby == orderby and current_filters.order == order ? 'selected' : '' }}>
+                    {{ label }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    {% if videos is not empty %}
+        <div class="table-responsive-wrapper">
+            <table class="my-content-list__table sortable">
+                <thead>
+                    <tr>
+                        <th><a href="{{ panel_url }}?view=moje-filmy&orderby=id&order={{ current_filters.orderby == 'id' and current_filters.order == 'ASC' ? 'DESC' : 'ASC' }}">ID</a></th>
+                        <th class="column-thumbnail">Miniaturka</th>
+                        <th><a href="{{ panel_url }}?view=moje-filmy&orderby=title&order={{ current_filters.orderby == 'title' and current_filters.order == 'ASC' ? 'DESC' : 'ASC' }}">Tytuł</a></th>
+                        <th><a href="{{ panel_url }}?view=moje-filmy&orderby=verified&order={{ current_filters.orderby == 'verified' and current_filters.order == 'ASC' ? 'DESC' : 'ASC' }}">Status</a></th>
+                        <th>Akcje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for video in videos %}
+                        <tr>
+                            <td data-label="ID">{{ video.id }}</td>
+                            <td data-label="Miniaturka">
+                                <div class="thumbnail-container">
+                                    <img src="{{ video.thumbnail }}" alt="Miniaturka filmu {{ video.title }}" class="video-thumbnail">
+                                    {% if video.duration %}
+                                        <span class="duration-overlay">{{ video.duration }} min</span>
+                                    {% endif %}
+                                </div>
+                            </td>
+                            <td data-label="Tytuł">{{ video.title }}</td>
+                            <td data-label="Status">
+                                <span class="status-badge {{ video.status_info.class }}">{{ video.status_info.text }}</span>
+                            </td>
+                            <td data-label="Akcje" class="actions-cell">
+                                <a href="#" class="btn btn--secondary btn--small btn--icon js-duplicate-video-btn" title="Duplikuj" data-video-id="{{ video.id }}">
+                                    <span class="material-symbols-outlined">content_copy</span>
+                                </a>
+                                <a href="{{ panel_url }}?view=edytuj-film&video_id={{ video.id }}" class="btn btn--secondary btn--small btn--icon" title="Edytuj">
+                                    <span class="material-symbols-outlined">edit</span>
+                                </a>
+                                <a href="#" class="btn btn--danger btn--small btn--icon js-delete-video-btn" title="Usuń" data-video-id="{{ video.id }}">
+                                    <span class="material-symbols-outlined">delete</span>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="message-box">Nie znaleziono żadnych filmów pasujących do Twoich kryteriów.</div>
+    {% endif %}
+</div>

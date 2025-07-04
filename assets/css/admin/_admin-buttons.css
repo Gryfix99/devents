@@ -1,0 +1,84 @@
+/* --------------------------------------------------
+   ADMIN BUTTONS STYLES
+   Style dla WSZYSTKICH przycisków w panelu administratora.
+   Uproszczone z użyciem klasy bazowej 'btn' i modyfikatorów.
+----------------------------------------------------- */
+
+/* Klasa bazowa dla przycisków w adminie (dziedziczy z _base.css i nadpisuje) */
+.btn {
+    margin: 2px;
+    padding: 6px 12px;
+    border: none;
+    border-radius: var(--border-radius-small);
+    font-size: 13px;
+    cursor: pointer;
+    transition: background var(--transition-speed), transform 0.1s;
+    text-decoration: none;
+    display: inline-block;
+    /* Aby padding działał na linkach */
+    text-align: center;
+
+}
+
+/* Typy przycisków */
+.btn--primary {
+    background: var(--primary);
+    color: var(--bg-white);
+}
+
+.btn--primary:hover {
+    background: var(--primary-hover);
+}
+
+.btn--secondary {
+    background: var(--secondary);
+    color: var(--text-dark);
+    border: 1px solid var(--border-color);
+    /* Dodana ramka dla lepszego wyglądu */
+}
+
+.btn--secondary:hover {
+    background: var(--secondary-hover);
+}
+
+.btn--danger {
+    background: var(--danger);
+    color: var(--bg-white);
+}
+
+.btn--danger:hover {
+    background: var(--danger-hover);
+}
+
+/* Rozmiary przycisków */
+.btn--small {
+    padding: 4px 8px;
+    font-size: 12px;
+}
+
+.btn--large {
+    padding: 10px 20px;
+    font-size: 1rem;
+}
+
+/* Przycisk submit formularza (z formularzy admina) */
+.btn--submit {
+    /* Nowa klasa modyfikatora dla przycisków submit */
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: 500;
+    box-shadow: 0 3px 6px rgba(0, 160, 150, 0.2);
+    margin-top: 12px;
+    width: auto;
+    /* Domyślnie auto */
+}
+
+/* Animacje */
+.btn:hover {
+    transform: scale(1.02);
+    /* Lekkie powiększenie na hover */
+}
+
+.btn:active {
+    transform: scale(0.98);
+}

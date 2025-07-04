@@ -1,0 +1,24 @@
+/* --------------------------------------------------
+   GLOBAL UTILITY STYLES
+   Małe, reużywalne klasy pomocnicze.
+----------------------------------------------------- */
+
+/* Klasa ukrywająca elementy (używana przez JS) */
+.hidden {
+    display: none !important;
+}
+
+/* Klasy tekstowe */
+.text-center {
+    text-align: center;
+}
+
+.text-red-500 {
+    color: red !important;
+}
+
+/* Możesz dodawać więcej klas pomocniczych, np.
+.mt-10 { margin-top: 10px; }
+.p-20 { padding: 20px; }
+.flex-row-center { display: flex; justify-content: center; align-items: center; }
+*/
